@@ -19,8 +19,7 @@ public class HeroStatFragment extends Fragment {
         View view;
 
         view = inflater.inflate(R.layout.tab_hero_stat, container, false);
-return view;
-        /*
+
         Stat stat = hero.getStat();
         DecimalFormat intFormat = new DecimalFormat();
         intFormat.applyPattern(",###");
@@ -55,7 +54,7 @@ return view;
         ((TextView)(view.findViewById(R.id.statLifeOnHit))).setText(intFormat.format(stat.getLifeOnHit()));
         ((TextView)(view.findViewById(R.id.statLifePerKill))).setText(intFormat.format(stat.getLifePerKill()));
         return view;
-        */
+
     }
 
     private Hero hero;

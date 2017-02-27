@@ -33,7 +33,7 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
         Hero hero = new Hero();
 
         try {
-            URL url = new URL("https://api.battlenet.com.cn/d3/profile/方枪枪-5690/hero/34691101?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4");
+            URL url = new URL("https://api.battlenet.com.cn/d3/profile/"+params[0]+"/hero/"+params[1]+"?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4");
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
@@ -101,6 +101,8 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
                 item.setIcon(jsonItem.getString("icon"));
                 item.setDisplayColor(jsonItem.getString("displayColor"));
                 item.setTooltipParams(jsonItem.getString("tooltipParams"));
+                ArrayList<String> sockets = D3API.getItemJson(item.getTooltipParams());
+                item.setSocket(sockets);
 
                 items.put(itemName, item);
             }

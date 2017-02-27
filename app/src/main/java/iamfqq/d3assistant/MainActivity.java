@@ -68,14 +68,15 @@ public class MainActivity extends AppCompatActivity
 
                     break;
                 case R.id.action_showhero:
+
                     HeroTask ht = new HeroTask(new TaskCompleted() {
                         @Override
                         public void OnTaskCompleted(Object result) {
-                            //intentShowHero.putExtra("myHero", (Hero)result);
+                            intentShowHero.putExtra("myHero", (Hero)result);
                             startActivity(intentShowHero);
                         }
                     });
-                    ht.execute();
+                    ht.execute("方枪枪-5690","36760898");
 
                     break;
             }
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void myTest(View view) {
-        CareerProfile cp = D3API.getProfile("方枪枪-5690");
+
         D3API.getItemJson("item/Co0BCPm0re0MEgcIBBXqNOh1HWYjBlAd6tWSPx3mFdsNHZinjsAdFkn0hx0HXp3TMItaONgBQABQElgEYLEDajAKDAgAEOvxnrCBgICAGBIgCI7P0eAGEgcIBBVsF6PBMItSOABAAFASWASQAQnYAWCAAUalAZinjsCtAZinjsC1ATZVXUS4AYaFtpcHwAERGNTTwd4OUAJYAKABkqK93g6gAdTTwd4O?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5");
         ProfileTask pt = new ProfileTask(new TaskCompleted() {
             @Override

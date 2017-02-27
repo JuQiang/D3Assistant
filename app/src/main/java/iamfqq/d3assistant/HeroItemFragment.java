@@ -13,14 +13,17 @@ import android.view.ViewGroup;
 public class HeroItemFragment extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        return  inflater.inflate(R.layout.tab_hero_item, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.tab_hero_item, container, false);
+        ItemView iv = (ItemView)view.findViewById(R.id.myItemView);
+        iv.setHero(hero);
 
+        return iv;
     }
 
     private Hero hero;
-    public void SetHero(Hero hero){
+
+    public void SetHero(Hero hero) {
         this.hero = hero;
     }
 }
