@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff404040"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp">
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:stretchColumns="*">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="基本"
+                    android:textColor="#ffffffff"
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_span="2"
+                    android:background="#ffffffff"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="力量"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statStrength"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="敏捷"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statDexterity"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="智力"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statIntelligence"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="体能"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statVitality"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="伤害"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statDamage"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="坚韧"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statToughness"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="恢复"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statHealing"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="攻击"
+                    android:textColor="#ffffffff"
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_span="2"
+                    android:background="#ffffffff"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="每秒攻击次数"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statAttackSpeed"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="暴击"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statCritChance"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="暴伤"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statCritDamage"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffffff"
+                    android:text="防御"
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_span="2"
+                    android:background="#ffffffff"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="护甲值"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statArmor"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="物理抗性"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statPhysicalResist"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="冰霜抗性"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statColdResist"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="火焰抗性"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statFireResist"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="闪电抗性"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statLightningResist"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="毒性抗性"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statPoisonResist"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="奥术/神圣抗性"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statArcaneResist"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="荆棘"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statThorns"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffffff"
+
+                    android:text="生命值"
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_span="2"
+                    android:background="#ffffffff"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生命值上限"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statLife"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="每秒回复生命"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statLifeSteal"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="击中回复生命"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statLifeOnHit"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="消灭回复生命"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statLifePerKill"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="消耗怒气回复的生命值"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/guildName52"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffffff"
+                    android:text="能量"
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_span="2"
+                    android:background="#ffffffff"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="主属性上限"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statPrimaryResource"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="每秒恢复主能量"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/guildName62"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+             <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffffff"
+                    android:text="冒险"
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_span="2"
+                    android:background="#ffffffff"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="移动速度"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/guildName71"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="金币获取量"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statGoldFind"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="魔法物品获取率"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/statMagicFind"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="1,111,234"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffffff"
+                    android:text="卡奈的威能"
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_span="2"
+                    android:background="#ffffffff"
+                    android:text=""
+                    android:textSize="20dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="武器"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/guildName81"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="焚炉"
+                    android:textColor="#ffcc6e3c"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="护甲"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/guildName82"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="掠宝长靴"
+                    android:textColor="#ffcc6e3c"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="首饰"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"
+                    android:textSize="16dp"></TextView>
+
+                <TextView
+                    android:id="@+id/guildName83"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:text="力量指环"
+                    android:textColor="#ffcc6e3c"
+                    android:textSize="16dp"></TextView>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

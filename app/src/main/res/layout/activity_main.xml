@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+
+    tools:context="iamfqq.d3assistant.MainActivity"
+    android:background="@android:color/background_dark">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/d3toolbar"
+        android:background="?attr/colorPrimary"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent" >
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/d3toolbar"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg2">
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/idProfile"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:hint="@string/idProfile"
+                android:text="春日夏树-5476"
+                android:background="@android:color/background_light"
+                android:layout_height="wrap_content"
+                android:height="32dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="myTest"
+                android:text="搜索" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="myTest2"
+                android:text="搜索" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            >
+            <TableRow>
+                <TextView android:text="英雄怕老公登记" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"></TextView>
+                <TextView android:id="@+id/testid" android:text="工会名称" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/background_light"
+                    android:gravity="right"
+                    ></TextView>
+            </TableRow>
+            <TableRow>
+                <TextView android:text="工会名称：" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"></TextView>
+                <TextView android:id="@+id/guildName" android:text="工会名称" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/background_light"
+                    android:gravity="right"
+                    ></TextView>
+            </TableRow>
+            <TableRow>
+                <TextView android:text="巅峰等级：" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"></TextView>
+                <TextView android:id="@+id/paragonLevel" android:text="工会名称2" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/background_light"
+                    android:gravity="right"
+
+                    ></TextView>
+            </TableRow>
+            <TableRow>
+                <TextView android:text="赛季巅峰等级：" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"></TextView>
+                <TextView android:id="@+id/paragonLevelSeason" android:text="工会名称" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/background_light"
+                    android:gravity="right"
+                    ></TextView>
+            </TableRow>
+            <TableRow>
+                <TextView android:text="击杀精英：" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"></TextView>
+                <TextView android:id="@+id/ElitesKills" android:text="工会名称" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/background_light"
+                    android:gravity="right"
+                    ></TextView>
+            </TableRow>
+            <TableRow>
+                <TextView android:text="击杀小怪：" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="?android:attr/textColorSecondaryNoDisable"></TextView>
+                <TextView android:id="@+id/MonstersKills" android:text="工会名称" android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/background_light"
+                    android:gravity="right"
+                    ></TextView>
+            </TableRow>
+        </TableLayout>
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:verticalSpacing="8dp"
+            android:horizontalSpacing="8dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

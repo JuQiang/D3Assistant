@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff404040"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+            <TextView android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="基本1"
+                android:layout_span="2"
+                />
+        </TableRow>
+        <TableRow>
+
+            <iamfqq.d3assistant.SkillView
+                android:id="@+id/skillL"
+                IconName="skilll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <iamfqq.d3assistant.SkillView
+                android:id="@+id/skillR"
+                IconName="skillr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow>
+
+            <iamfqq.d3assistant.SkillView
+                android:id="@+id/skill1"
+                IconName="skill1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <iamfqq.d3assistant.SkillView
+                android:id="@+id/skill2"
+                IconName="skill2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow>
+
+            <iamfqq.d3assistant.SkillView
+                android:id="@+id/skill3"
+                IconName="skill3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <iamfqq.d3assistant.SkillView
+                android:id="@+id/skill4"
+                IconName="skill4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="基本2"
+                android:layout_span="2"
+                />
+        </TableRow>
+        <TableRow>
+
+            <iamfqq.d3assistant.SkillPassiveView
+                android:id="@+id/skillPassive1"
+                IconName="skill1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <iamfqq.d3assistant.SkillPassiveView
+                android:id="@+id/skillPassive2"
+                IconName="skill2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow>
+
+            <iamfqq.d3assistant.SkillPassiveView
+                android:id="@+id/skillPassive3"
+                IconName="skill3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <iamfqq.d3assistant.SkillPassiveView
+                android:id="@+id/skillPassive4"
+                IconName="skill4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>
