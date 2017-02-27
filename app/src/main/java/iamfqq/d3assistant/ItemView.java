@@ -28,6 +28,7 @@ public class ItemView extends View {
     private Bitmap bmpRightFinger;
     private Bitmap bmpLeftFinger;
     private Bitmap bmpNeck;
+    private Bitmap bmpEmptyIcon;
 
     private Bitmap bmpBackBlue;
     private Bitmap bmpBackYellow;
@@ -60,6 +61,7 @@ public class ItemView extends View {
         bmpRightFinger = BitmapFactory.decodeResource(getResources(), R.drawable.rightfinger);
         bmpLeftFinger = BitmapFactory.decodeResource(getResources(), R.drawable.leftfinger);
         bmpNeck = BitmapFactory.decodeResource(getResources(), R.drawable.neck);
+        bmpEmptyIcon = BitmapFactory.decodeResource(getResources(), R.drawable.emptyicon);
 
         bmpBackBlue = BitmapFactory.decodeResource(getResources(), R.drawable.blue);
         bmpBackYellow = BitmapFactory.decodeResource(getResources(), R.drawable.yellow);
@@ -176,32 +178,32 @@ public class ItemView extends View {
         top = 693;
         canvas.drawBitmap(bmpBackOrange,
                 new Rect(0, 0, 201, 201),
-                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 240, top + 2 * 3+95), null);
-        canvas.drawBitmap(bmpWaist, left + 2 * 3+24, top - 20 * 3, null);
+                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 240, top + 2 * 3 + 95), null);
+        canvas.drawBitmap(bmpWaist, left + 2 * 3 + 24, top - 20 * 3, null);
         canvas.drawRect(left, top, left + 246, top + 100, paintOrange);
 
         left = 825;
         top = 798;
         canvas.drawBitmap(bmpBackGreen,
                 new Rect(0, 0, 201, 201),
-                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 117, top + 2 * 3+116), null);
-        canvas.drawBitmap(bmpRightFinger, left + 2 * 3-39, top - 12 * 3, null);
+                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 117, top + 2 * 3 + 116), null);
+        canvas.drawBitmap(bmpRightFinger, left + 2 * 3 - 39, top - 12 * 3, null);
         canvas.drawRect(left, top, left + 120, top + 120, paintGreen);
 
         left = 177;
         top = 798;
         canvas.drawBitmap(bmpBackGreen,
                 new Rect(0, 0, 201, 201),
-                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 117, top + 2 * 3+116), null);
-        canvas.drawBitmap(bmpLeftFinger, left + 2 * 3-39, top - 12 * 3, null);
+                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 117, top + 2 * 3 + 116), null);
+        canvas.drawBitmap(bmpLeftFinger, left + 2 * 3 - 39, top - 12 * 3, null);
         canvas.drawRect(left, top, left + 120, top + 120, paintGreen);
 
         left = 717;
         top = 260;
         canvas.drawBitmap(bmpBackOrange,
                 new Rect(0, 0, 201, 201),
-                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 162, top + 2 * 3+162), null);
-        canvas.drawBitmap(bmpNeck, left + 2 * 3-21, top - 6 * 3, null);
+                new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 162, top + 2 * 3 + 162), null);
+        canvas.drawBitmap(bmpNeck, left + 2 * 3 - 21, top - 6 * 3, null);
         canvas.drawRect(left, top, left + 165, top + 165, paintOrange);
 
     }

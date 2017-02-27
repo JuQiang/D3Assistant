@@ -9,12 +9,8 @@ import java.util.ArrayList;
 public class Item implements Serializable {
     private String id;
 
-    public ArrayList<Item> getDyeColor() {
-        return dyeColor;
-    }
-
-    public void setDyeColor(ArrayList<Item> dyeColor) {
-        this.dyeColor = dyeColor;
+    public ArrayList<String> getSocket() {
+        return socket;
     }
 
     public String getId() {
@@ -61,5 +57,8 @@ public class Item implements Serializable {
     private String icon;
     private String displayColor;
     private String tooltipParams;
-    private ArrayList<Item> dyeColor;
+    private ArrayList<String> socket = new ArrayList<String>();
+
+    //json说明：      https://api.battlenet.com.cn/d3/data/item/Co0BCPm0re0MEgcIBBXqNOh1HWYjBlAd6tWSPx3mFdsNHZinjsAdFkn0hx0HXp3TMItaONgBQABQElgEYLEDajAKDAgAEOvxnrCBgICAGBIgCI7P0eAGEgcIBBVsF6PBMItSOABAAFASWASQAQnYAWCAAUalAZinjsCtAZinjsC1ATZVXUS4AYaFtpcHwAERGNTTwd4OUAJYAKABkqK93g6gAdTTwd4O?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5
+    //装备的HTML说明：http://d3.blizzard.cn/action/profile/item?param=item/CogBCJbg5fAGEgcIBBVV4wJkHayvKGId0u_p7R3OgsHbHYaQ_NodZiMGUB1yjh0hMItSOIEBQABQElgEYKICaisKDAgAEK60-dyBgIDgNhIbCM_spKYOEgcIBBVCLTepMI9SOABAAVgEkAEJgAFGpQFyjh0hrQGMWTBHtQGqRZ8TuAGj0_CDCcABARiqjZfADFACWAA
 }

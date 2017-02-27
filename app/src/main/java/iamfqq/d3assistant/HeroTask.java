@@ -102,22 +102,6 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
                 item.setDisplayColor(jsonItem.getString("displayColor"));
                 item.setTooltipParams(jsonItem.getString("tooltipParams"));
 
-                ArrayList<Item> dyeList = new ArrayList<Item>();
-                if (null != jsonItem.opt("dyeColor")) {
-                    JSONObject jsonDyeItem2 = new JSONObject(jsonItem.getString("dyeColor"));
-                    JSONObject jsonDyeItem = new JSONObject(jsonDyeItem2.getString("item"));
-
-                    Item dyeItem = new Item();
-                    dyeItem.setId(jsonDyeItem.getString("id"));
-                    dyeItem.setName(jsonDyeItem.getString("name"));
-                    dyeItem.setIcon(jsonDyeItem.getString("icon"));
-                    dyeItem.setDisplayColor(jsonDyeItem.getString("displayColor"));
-                    dyeItem.setTooltipParams(jsonDyeItem.getString("tooltipParams"));
-
-                    dyeList.add(dyeItem);
-                }
-                item.setDyeColor(dyeList);
-
                 items.put(itemName, item);
             }
 

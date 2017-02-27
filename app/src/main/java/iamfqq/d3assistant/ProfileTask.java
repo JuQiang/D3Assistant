@@ -24,6 +24,7 @@ import java.text.DecimalFormat;
 public class ProfileTask extends AsyncTask<String, Integer, CareerProfile> {
     private TaskCompleted listner;
 
+    public ProfileTask(){}
     public ProfileTask(TaskCompleted listner) {
         this.listner = listner;
     }
@@ -34,7 +35,7 @@ public class ProfileTask extends AsyncTask<String, Integer, CareerProfile> {
         CareerProfile careerProfile = new CareerProfile();
 
         try {
-            URL url = new URL("https://api.battlenet.com.cn/d3/profile/春日夏树-5476/?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4");
+            URL url = new URL("https://api.battlenet.com.cn/d3/profile/"+params[0]+"/?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4");
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
