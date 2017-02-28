@@ -61,6 +61,8 @@ public class ShowHeroActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         myHero = (Hero) intent.getSerializableExtra("myHero");
         InitView();
+
+        D3API.setContext(this);
     }
 
     private void InitView() {

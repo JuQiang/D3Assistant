@@ -36,7 +36,11 @@ import java.util.ArrayList;
 
 public class D3API {
     final private static String packageName = "iamfqq.d3assistant";
+    private static Context context;
 
+    public static void setContext(Context con){
+        context = con;
+    }
     public static CareerProfile getProfile(String profileId) {
         final CareerProfile[] ret = new CareerProfile[1];
 
@@ -56,8 +60,9 @@ public class D3API {
         String cachedFilename = "item_" + GetHash(cacheKey) + ".json";
 
         if (needCache) {
-            if (fileExists(cachedFilename)) {
-                byte[] buf = readInternalStorage(cachedFilename);
+            boolean exist = fileExists(cachedFilename);
+            if (exist) {
+                byte[] buf = readExternallStoragePublic(cachedFilename);
                 ret = new String(buf);
             }
         } else {
@@ -77,7 +82,7 @@ public class D3API {
                 in.close();
 
                 ret = buffer.toString();
-                writeInternalStorage(cachedFilename, ret.getBytes());//write to cache
+                writeToExternalStoragePublic(cachedFilename, ret.getBytes());//write to cache
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -134,6 +139,7 @@ public class D3API {
             String urlString = "https://api.battlenet.com.cn/d3/data/" + tooltipParams + "?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5";
             String jsonString = DownloadString(urlString, true, tooltipParams.replace("item/", ""));
 
+            if(jsonString.length()<1)return ret;
             JSONArray jsonArray = (new JSONObject(jsonString)).getJSONArray("gems");
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -187,7 +193,7 @@ public class D3API {
         // storage, but writing to root is not recommended, and instead
         // application should write to application-specific directory, as shown below.
 
-        String path = "/Android/data/" + packageName + "/files/";
+        String path = getDiskCacheDir(context,packageName);
 
         if (isExternalStorageAvailable() &&
                 !isExternalStorageReadOnly()) {
@@ -215,7 +221,7 @@ public class D3API {
         int len = 1024;
         byte[] buffer = new byte[len];
 
-        String path = "/Android/data/" + packageName + "/files/";
+        String path = getDiskCacheDir(context,packageName);
 
         if (!isExternalStorageReadOnly()) {
             try {
@@ -239,7 +245,7 @@ public class D3API {
     }
 
     public static void deleteExternalStoragePublicFile(String filename) {
-        String path = "/Android/data/" + packageName + "/files/" + filename;
+        String path = getDiskCacheDir(context,packageName);
         File file = new File(path, filename);
         if (file != null) {
             file.delete();
@@ -277,8 +283,25 @@ public class D3API {
 
 
     private static boolean fileExists(String filename) {
-        File f = new File(filename);
-        return f.exists();
+        String path = getDiskCacheDir(context,packageName);
+
+        boolean ret = false;
+        try {
+            File file = new File(path,filename);
+            ret = file.canRead();
+            boolean ret2 = file.canExecute();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return ret;
+        /*
+        File dir = Environment.getExternalStorageDirectory();
+        File file = new File(dir + filename);
+        return file.canRead();
+        */
+        //http://stackoverflow.com/questions/21579468/android-file-exists-returns-false-for-existing-file-for-anything-different
     }
 
     /**
@@ -288,7 +311,6 @@ public class D3API {
      * @return the file content
      */
     public static byte[] readInternalStorage(String filename) {
-        if (fileExists(filename) == false) return new byte[1];
         int len = 1024;
         byte[] buffer = new byte[len];
         try {
@@ -321,5 +343,20 @@ public class D3API {
             file.delete();
         }
     }
+    public static String getDiskCacheDir(Context context, String packageName) {
 
+        String cachePath;
+        if (Environment.MEDIA_MOUNTED.equals(Environment
+                .getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            try {
+                cachePath = context.getExternalCacheDir().getPath();
+            } catch (Exception e) {
+                cachePath = context.getCacheDir().getPath();
+            }
+        } else {
+            cachePath = context.getCacheDir().getPath();
+        }
+        return cachePath + File.separator;
+    }
 }

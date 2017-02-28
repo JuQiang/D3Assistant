@@ -55,9 +55,10 @@ public class MainActivity extends AppCompatActivity
         //toolbar.setNavigationIcon(R.drawable.ab_android);
 
         this.context = this;
-
         intentAddFriend = new Intent(this, AddFriendActivity.class);
         intentShowHero = new Intent(this, ShowHeroActivity.class);
+
+        D3API.setContext(this);
     }
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
@@ -120,24 +121,9 @@ public class MainActivity extends AppCompatActivity
      * 得到(图片/新闻)缓存存储地址 默认:sd卡指定位置: /sdcard/Android/data/<application
      * package>/cache 如果不存在或不可使用 则是内存卡
      * */
-    public String getDiskCacheDir(Context context, String packageName) {
 
-        String cachePath;
-        if (Environment.MEDIA_MOUNTED.equals(Environment
-                .getExternalStorageState())
-                || !Environment.isExternalStorageRemovable()) {
-            try {
-                cachePath = context.getExternalCacheDir().getPath();
-            } catch (Exception e) {
-                cachePath = context.getCacheDir().getPath();
-            }
-        } else {
-            cachePath = context.getCacheDir().getPath();
-        }
-        return cachePath + File.separator;
-    }
     public void myTest2(View view) {
-String path = getDiskCacheDir(this.context,"iamfqq.d3assistant");
+String path =D3API.getDiskCacheDir(this.context,"iamfqq.d3assistant");
         String name = this.getPackageName();
         HeroTask ht = new HeroTask(new TaskCompleted() {
             @Override
