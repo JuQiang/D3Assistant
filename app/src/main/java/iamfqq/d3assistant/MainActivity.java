@@ -3,6 +3,7 @@ package iamfqq.d3assistant;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -114,8 +116,29 @@ public class MainActivity extends AppCompatActivity
         pt.execute();
     }
 
-    public void myTest2(View view) {
+    /**
+     * 得到(图片/新闻)缓存存储地址 默认:sd卡指定位置: /sdcard/Android/data/<application
+     * package>/cache 如果不存在或不可使用 则是内存卡
+     * */
+    public String getDiskCacheDir(Context context, String packageName) {
 
+        String cachePath;
+        if (Environment.MEDIA_MOUNTED.equals(Environment
+                .getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            try {
+                cachePath = context.getExternalCacheDir().getPath();
+            } catch (Exception e) {
+                cachePath = context.getCacheDir().getPath();
+            }
+        } else {
+            cachePath = context.getCacheDir().getPath();
+        }
+        return cachePath + File.separator;
+    }
+    public void myTest2(View view) {
+String path = getDiskCacheDir(this.context,"iamfqq.d3assistant");
+        String name = this.getPackageName();
         HeroTask ht = new HeroTask(new TaskCompleted() {
             @Override
             public void OnTaskCompleted(Object result) {
@@ -129,4 +152,5 @@ public class MainActivity extends AppCompatActivity
         });
         ht.execute();
     }
+
 }
