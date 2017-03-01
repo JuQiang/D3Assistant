@@ -1,6 +1,8 @@
 package iamfqq.d3assistant;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -12,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -21,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -38,9 +42,10 @@ public class D3API {
     final private static String packageName = "iamfqq.d3assistant";
     private static Context context;
 
-    public static void setContext(Context con){
+    public static void setContext(Context con) {
         context = con;
     }
+
     public static CareerProfile getProfile(String profileId) {
         final CareerProfile[] ret = new CareerProfile[1];
 
@@ -57,50 +62,117 @@ public class D3API {
     public static String DownloadString(String urlString, boolean needCache, String cacheKey) {
         HttpURLConnection urlConnection = null;
         String ret = "";
-        String cachedFilename = "item_" + GetHash(cacheKey) + ".json";
+        String cachedFilename = GetHash(cacheKey) + ".string";
 
         if (needCache) {
             boolean exist = fileExists(cachedFilename);
             if (exist) {
                 byte[] buf = readExternallStoragePublic(cachedFilename);
                 ret = new String(buf);
+
+                return ret;
             }
-        } else {
-            try {
-                URL url = new URL(urlString);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+        }
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                StringBuffer buffer = new StringBuffer();
-                String line = "";
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
-                }
+        try {
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                reader.close();
-                in.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
 
-                ret = buffer.toString();
-                writeToExternalStoragePublic(cachedFilename, ret.getBytes());//write to cache
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
+            reader.close();
+            in.close();
+
+            ret = buffer.toString();
+            writeToExternalStoragePublic(cachedFilename, ret.getBytes());//write to cache
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
             }
         }
 
         return ret;
     }
 
-    private static byte[] DownloadBinary(String url, boolean needCache) {
-        return null;
+    public static Bitmap DownloadBitmap(Item item) {
+        String urlString = item.getIconUrl();
+        boolean needCache = true;
+        String cacheKey = item.getIcon();
+
+        HttpURLConnection urlConnection = null;
+        Bitmap ret = null;
+        String cachedFilename = GetHash(cacheKey) + ".bitmap";
+
+        if (needCache) {
+            boolean exist = fileExists(cachedFilename);
+            if (exist) {
+                byte[] buf = readExternallStoragePublic(cachedFilename);
+                ret = BitmapFactory.decodeByteArray(buf, 0, buf.length);
+
+                return ret;
+            }
+        }
+
+        try {
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            InputStream input = new BufferedInputStream(urlConnection.getInputStream());
+            String path = getDiskCacheDir(context, packageName);
+            int fileLength = urlConnection.getContentLength();
+
+            if (isExternalStorageAvailable() &&
+                    !isExternalStorageReadOnly()) {
+                try {
+                    File file = new File(path);
+                    file.mkdirs();
+                    FileOutputStream fos = new FileOutputStream(path + cachedFilename);
+
+                    byte data[] = new byte[4096];
+                    long total = 0;
+                    int count;
+                    while ((count = input.read(data)) != -1) {
+                        // allow canceling with back button
+//                if ( isCancelled()) {
+//                    input.close();
+//                    return null;
+//                }
+//                        total += count;
+                        fos.write(data, 0, count);
+                    }
+                    fos.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            input.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+        }
+
+        return ret;
     }
 
     private static void WriteLog(String tag, String message) {
@@ -139,7 +211,7 @@ public class D3API {
             String urlString = "https://api.battlenet.com.cn/d3/data/" + tooltipParams + "?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5";
             String jsonString = DownloadString(urlString, true, tooltipParams.replace("item/", ""));
 
-            if(jsonString.length()<1)return ret;
+            if (jsonString.length() < 1) return ret;
             JSONArray jsonArray = (new JSONObject(jsonString)).getJSONArray("gems");
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -193,14 +265,14 @@ public class D3API {
         // storage, but writing to root is not recommended, and instead
         // application should write to application-specific directory, as shown below.
 
-        String path = getDiskCacheDir(context,packageName);
+        String path = getDiskCacheDir(context, packageName);
 
         if (isExternalStorageAvailable() &&
                 !isExternalStorageReadOnly()) {
             try {
-                File file = new File(path, filename);
+                File file = new File(path);
                 file.mkdirs();
-                FileOutputStream fos = new FileOutputStream(file);
+                FileOutputStream fos = new FileOutputStream(path + filename);
                 fos.write(content);
                 fos.close();
             } catch (FileNotFoundException e) {
@@ -221,12 +293,12 @@ public class D3API {
         int len = 1024;
         byte[] buffer = new byte[len];
 
-        String path = getDiskCacheDir(context,packageName);
-
+        WriteLog("====boolean2.1===", filename);
+        String path = getDiskCacheDir(context, packageName);
+        WriteLog("====boolean2.2===", path);
         if (!isExternalStorageReadOnly()) {
             try {
-                File file = new File(path, filename);
-                FileInputStream fis = new FileInputStream(file);
+                FileInputStream fis = new FileInputStream(path + filename);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 int nrb = fis.read(buffer, 0, len); //read up to len bytes
                 while (nrb != -1) {
@@ -241,11 +313,12 @@ public class D3API {
                 e.printStackTrace();
             }
         }
+        WriteLog("====boolean2.5===", "");
         return buffer;
     }
 
     public static void deleteExternalStoragePublicFile(String filename) {
-        String path = getDiskCacheDir(context,packageName);
+        String path = getDiskCacheDir(context, packageName);
         File file = new File(path, filename);
         if (file != null) {
             file.delete();
@@ -283,15 +356,14 @@ public class D3API {
 
 
     private static boolean fileExists(String filename) {
-        String path = getDiskCacheDir(context,packageName);
+        String path = getDiskCacheDir(context, packageName);
 
         boolean ret = false;
         try {
-            File file = new File(path,filename);
+            File file = new File(path, filename);
             ret = file.canRead();
             boolean ret2 = file.canExecute();
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -343,6 +415,7 @@ public class D3API {
             file.delete();
         }
     }
+
     public static String getDiskCacheDir(Context context, String packageName) {
 
         String cachePath;

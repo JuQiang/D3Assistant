@@ -12,8 +12,9 @@ public class Item implements Serializable {
     public ArrayList<String> getSocket() {
         return socket;
     }
+
     public void setSocket(ArrayList<String> socket) {
-        this.socket=socket;
+        this.socket = socket;
     }
 
     public String getId() {
@@ -54,6 +55,11 @@ public class Item implements Serializable {
 
     public void setTooltipParams(String tooltipParams) {
         this.tooltipParams = tooltipParams;
+    }
+
+    public String getIconUrl() {
+        //图标：http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/x1_amethyst_10_demonhunter_male.png
+        return "http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + this.icon + ".png";
     }
 
     private String name;

@@ -105,6 +105,7 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
                 item.setSocket(sockets);
 
                 items.put(itemName, item);
+                D3API.DownloadBitmap(item);
             }
 
             hero.setItems(items);
