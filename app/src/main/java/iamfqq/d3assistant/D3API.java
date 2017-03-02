@@ -106,10 +106,8 @@ public class D3API {
         return ret;
     }
 
-    public static Bitmap DownloadBitmap(Item item) {
-        String urlString = item.getIconUrl();
+    public static Bitmap DownloadBitmap(String urlString, String cacheKey) {
         boolean needCache = true;
-        String cacheKey = item.getIcon();
 
         HttpURLConnection urlConnection = null;
         Bitmap ret = null;
@@ -202,22 +200,25 @@ public class D3API {
         return hex.toString();
     }
 
-    public static ArrayList<String> getItemJson(String tooltipParams) {
+    public static Item getGemsInformation(String tooltipParams) {
         WriteLog("getItemJson begin", tooltipParams);
-        ArrayList<String> ret = new ArrayList<String>();
+        Item item = new Item();
 
         //https://api.battlenet.com.cn/d3/data/item/Co0BCPm0re0MEgcIBBXqNOh1HWYjBlAd6tWSPx3mFdsNHZinjsAdFkn0hx0HXp3TMItaONgBQABQElgEYLEDajAKDAgAEOvxnrCBgICAGBIgCI7P0eAGEgcIBBVsF6PBMItSOABAAFASWASQAQnYAWCAAUalAZinjsCtAZinjsC1ATZVXUS4AYaFtpcHwAERGNTTwd4OUAJYAKABkqK93g6gAdTTwd4O?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5
         try {
             String urlString = "https://api.battlenet.com.cn/d3/data/" + tooltipParams + "?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5";
             String jsonString = DownloadString(urlString, true, tooltipParams.replace("item/", ""));
 
-            if (jsonString.length() < 1) return ret;
+            if (jsonString.length() < 1) return item;
             JSONArray jsonArray = (new JSONObject(jsonString)).getJSONArray("gems");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject itemJson = (JSONObject) jsonArray.opt(i);
-                ret.add((new JSONObject(itemJson.getString("item"))).getString("icon"));
+                item.getGems().add((new JSONObject(itemJson.getString("item"))).getString("icon"));
             }
+
+            JSONObject sockets = (new JSONObject(jsonString)).getJSONObject("attributesRaw").getJSONObject("Sockets");
+            item.setSocketCount((sockets == null) ? 0 : Integer.parseInt(sockets.get("min").toString().replace(".0","")));
         } catch (JSONException ex) {
             ex.printStackTrace();
         } catch (Exception ex) {
@@ -225,7 +226,7 @@ public class D3API {
         }
 
         WriteLog("getItemJson end", tooltipParams);
-        return ret;
+        return item;
     }
 
     /**

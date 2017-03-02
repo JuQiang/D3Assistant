@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity
                             startActivity(intentShowHero);
                         }
                     });
-                    ht.execute("方枪枪-5690","36760898");
+                    //36760898
+                    ht.execute("方枪枪-5690","38718388");//33575370
 
                     break;
             }
@@ -94,14 +95,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void myTest(View view) {
-
-        D3API.getItemJson("item/Co0BCPm0re0MEgcIBBXqNOh1HWYjBlAd6tWSPx3mFdsNHZinjsAdFkn0hx0HXp3TMItaONgBQABQElgEYLEDajAKDAgAEOvxnrCBgICAGBIgCI7P0eAGEgcIBBVsF6PBMItSOABAAFASWASQAQnYAWCAAUalAZinjsCtAZinjsC1ATZVXUS4AYaFtpcHwAERGNTTwd4OUAJYAKABkqK93g6gAdTTwd4O?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5");
         ProfileTask pt = new ProfileTask(new TaskCompleted() {
             @Override
             public void OnTaskCompleted(Object result) {
                 CareerProfile careerProfile = (CareerProfile)result;
                 if(careerProfile==null)return;
 
+                /*
                 DecimalFormat df = new DecimalFormat();
                 df.applyPattern("#,000");
                 ((TextView) findViewById(R.id.guildName)).setText(careerProfile.getGuildName());
@@ -109,9 +109,10 @@ public class MainActivity extends AppCompatActivity
                 ((TextView) findViewById(R.id.paragonLevelSeason)).setText(df.format(careerProfile.getParagonLevelSeason()));
                 ((TextView) findViewById(R.id.ElitesKills)).setText(df.format(careerProfile.getKillsElites()));
                 ((TextView) findViewById(R.id.MonstersKills)).setText(df.format(careerProfile.getKillsMonsters()));
-
-                GridView gridView = (GridView) findViewById(R.id.gridview);
-                gridView.setAdapter(new CareerImageAdapter(context, careerProfile));
+*/
+                //OwnerDraw的在这里！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+//                GridView gridView = (GridView) findViewById(R.id.gridview);
+//                gridView.setAdapter(new CareerImageAdapter(context, careerProfile));
             }
         });
         pt.execute();
@@ -130,10 +131,6 @@ String path =D3API.getDiskCacheDir(this.context,"iamfqq.d3assistant");
             public void OnTaskCompleted(Object result) {
                 Hero hero = (Hero)result;
                 if(hero==null)return;
-
-                TextView tv = (TextView) findViewById(R.id.testid);
-                int life = hero.getStat().getLife();
-                tv.setText(String.valueOf(life));
             }
         });
         ht.execute();

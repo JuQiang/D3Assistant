@@ -101,11 +101,16 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
                 item.setIcon(jsonItem.getString("icon"));
                 item.setDisplayColor(jsonItem.getString("displayColor"));
                 item.setTooltipParams(jsonItem.getString("tooltipParams"));
-                ArrayList<String> sockets = D3API.getItemJson(item.getTooltipParams());
-                item.setSocket(sockets);
+                Item tmpItem = D3API.getGemsInformation(item.getTooltipParams());
+                item.setGems(tmpItem.getGems());
+                item.setSocketCount(tmpItem.getSocketCount());
 
                 items.put(itemName, item);
-                D3API.DownloadBitmap(item);
+                D3API.DownloadBitmap(item.getIconUrl(),item.getIcon());
+                for(int j=0;j<item.getGems().size();j++) {
+                    String icon = item.getGems().get(j);
+                    D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/"+icon+".png",icon);
+                }
             }
 
             hero.setItems(items);
