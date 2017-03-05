@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,8 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private Intent intentAddFriend;
@@ -75,18 +75,19 @@ public class MainActivity extends AppCompatActivity
                     HeroTask ht = new HeroTask(new TaskCompleted() {
                         @Override
                         public void OnTaskCompleted(Object result) {
-                            intentShowHero.putExtra("myHero", (Hero)result);
+                            intentShowHero.putExtra("myHero", (Hero) result);
                             startActivity(intentShowHero);
                         }
                     });
                     //36760898
-                    ht.execute("方枪枪-5690","38718388");//33575370
+                    ht.execute("方枪枪-5690", "38718388");//33575370
 
                     break;
             }
             return true;
         }
     };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // 為了讓 Toolbar 的 Menu 有作用，這邊的程式不可以拿掉
@@ -94,12 +95,24 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void myTest3(View view) {
+        ArrayList<Friend> friends = D3API.getMyFriends();
+        TextView tv = (TextView)findViewById(R.id.tvFriends);
+        String lines = "";
+        for(int i=0;i<friends.size();i++){
+            Friend friend = friends.get(i);
+            lines += friend.getProfileID();
+            lines+=",";
+            lines+=friend.getNickName();
+            lines+=",";
+            lines+="\r\n";
+        }
+
+        tv.setText(lines);
+    }
+
     public void myTest(View view) {
-        ProfileTask pt = new ProfileTask(new TaskCompleted() {
-            @Override
-            public void OnTaskCompleted(Object result) {
-                CareerProfile careerProfile = (CareerProfile)result;
-                if(careerProfile==null)return;
+        D3API.addOrModifyFriend("abc", "def");
 
                 /*
                 DecimalFormat df = new DecimalFormat();
@@ -110,30 +123,31 @@ public class MainActivity extends AppCompatActivity
                 ((TextView) findViewById(R.id.ElitesKills)).setText(df.format(careerProfile.getKillsElites()));
                 ((TextView) findViewById(R.id.MonstersKills)).setText(df.format(careerProfile.getKillsMonsters()));
 */
-                //OwnerDraw的在这里！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        //OwnerDraw的在这里！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 //                GridView gridView = (GridView) findViewById(R.id.gridview);
 //                gridView.setAdapter(new CareerImageAdapter(context, careerProfile));
-            }
-        });
-        pt.execute();
     }
 
     /**
      * 得到(图片/新闻)缓存存储地址 默认:sd卡指定位置: /sdcard/Android/data/<application
      * package>/cache 如果不存在或不可使用 则是内存卡
-     * */
+     */
 
     public void myTest2(View view) {
-String path =D3API.getDiskCacheDir(this.context,"iamfqq.d3assistant");
-        String name = this.getPackageName();
-        HeroTask ht = new HeroTask(new TaskCompleted() {
-            @Override
-            public void OnTaskCompleted(Object result) {
-                Hero hero = (Hero)result;
-                if(hero==null)return;
-            }
-        });
-        ht.execute();
+        try {
+            String filename = "myfriends.txt";
+            String path = D3API.getDiskCacheDir(this.context, "iamfqq.d3assistant");
+            File file = new File(path + "myfriends.txt");
+            file.delete();
+
+            FileOutputStream fos = new FileOutputStream(path + filename);
+            fos.write("方枪枪-5690,方枪枪\r\n".getBytes());
+
+            fos.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return;
     }
 
 }

@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -33,6 +36,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JuQiang on 2/25/2017.
@@ -106,6 +110,9 @@ public class D3API {
         return ret;
     }
 
+    public static void ShowToast(String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
     public static Bitmap DownloadBitmap(String urlString, String cacheKey) {
         boolean needCache = true;
 
@@ -218,7 +225,7 @@ public class D3API {
             }
 
             JSONObject sockets = (new JSONObject(jsonString)).getJSONObject("attributesRaw").getJSONObject("Sockets");
-            item.setSocketCount((sockets == null) ? 0 : Integer.parseInt(sockets.get("min").toString().replace(".0","")));
+            item.setSocketCount((sockets == null) ? 0 : Integer.parseInt(sockets.get("min").toString().replace(".0", "")));
         } catch (JSONException ex) {
             ex.printStackTrace();
         } catch (Exception ex) {
@@ -251,6 +258,93 @@ public class D3API {
             state = true;
         }
         return state;
+    }
+
+    public static ArrayList<Friend> getMyFriends() {
+        String filename = "myfriends.txt";
+        FileInputStream fis = null;
+        BufferedReader br = null;
+        ArrayList<Friend> friendList = new ArrayList<Friend>();
+
+        String path = getDiskCacheDir(context, packageName);
+        if (fileExists(filename)) {
+            try {
+                fis = new FileInputStream(path + filename);
+                br = new BufferedReader(new InputStreamReader(fis));
+
+                String line = "";
+                boolean exist = false;
+                while ((line = br.readLine()) != null) {
+                    String[] tmp = line.split(",");
+                    friendList.add(new Friend(tmp[0], tmp[1]));
+                }
+                fis.close();
+                br.close();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                //if(fis!=null)fis.close();
+                //if(br!=null)br.close();
+            }
+        } else {
+            friendList.add(new Friend("方枪枪-5690", "方枪枪"));
+        }
+
+        return friendList;
+    }
+
+    public static void addOrModifyFriend(String profileID, String nickname) {
+        String filename = "myfriends.txt";
+        FileInputStream fis = null;
+        BufferedReader br = null;
+
+        String path = getDiskCacheDir(context, packageName);
+        if (fileExists(filename)) {
+            try {
+                fis = new FileInputStream(path + filename);
+                br = new BufferedReader(new InputStreamReader(fis));
+                StringBuffer buffer = new StringBuffer();
+
+                String line = "";
+                boolean exist = false;
+                while ((line = br.readLine()) != null) {
+                    if (line.startsWith(profileID + ",")) {
+                        exist = true;
+                        line = profileID + "," + nickname;
+                    }
+                    buffer.append(line);
+                    buffer.append("\r\n");
+                }
+                if (exist == false) {
+                    buffer.append(profileID + "," + nickname);
+                    buffer.append("\r\n");
+                }
+                fis.close();
+                br.close();
+
+                FileOutputStream fos = new FileOutputStream(path + filename);
+                fos.write(buffer.toString().getBytes());
+                fos.close();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                //if(fis!=null)fis.close();
+                //if(br!=null)br.close();
+            }
+        } else {
+            try {
+
+                FileOutputStream fos = new FileOutputStream(path + filename);
+                fos.write("方枪枪-5690,方枪枪\r\n".getBytes());
+
+                fos.write((profileID + "," + nickname + "\r\n").getBytes());
+                fos.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     /**

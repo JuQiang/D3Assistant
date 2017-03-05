@@ -24,6 +24,31 @@
         <TableRow>
 <Button android:background="@drawable/auriel" android:width="128dp" android:layout_height="128dp"/>
         </TableRow>
+        <TableRow>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnTest"
+                android:text="Click me"
+                android:onClick="myTest"></Button>
+        </TableRow>
+        <TableRow>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnTest2"
+                android:text="Delete"
+                android:onClick="myTest2"></Button>
+        </TableRow>
+        <TableRow>
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnTest3"
+                android:text="Show"
+                android:onClick="myTest3"></Button>
+        </TableRow>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/tvFriends"
+
+            />
     </TableLayout>
 
 </RelativeLayout>
