@@ -50,7 +50,7 @@ public class ProfileTask extends AsyncTask<String, Integer, CareerProfile> {
             in.close();
 
             JSONObject jsonProfile = new JSONObject(buffer.toString());
-            careerProfile.setBattleTag(jsonProfile.getString("battleTag"));
+            careerProfile.setBattleTag(jsonProfile.getString("battleTag").replace("#","-"));
             careerProfile.setParagonLevel(jsonProfile.getInt("paragonLevel"));
             careerProfile.setParagonLevelSeason(jsonProfile.getInt("paragonLevelSeason"));
             careerProfile.setGuildName(jsonProfile.getString("guildName"));

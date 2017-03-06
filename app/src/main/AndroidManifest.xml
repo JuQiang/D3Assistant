@@ -26,6 +26,7 @@
         <activity
             android:name=".ShowHeroActivity"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".ShowProfileActivity"></activity>
     </application>
 
 </manifest>

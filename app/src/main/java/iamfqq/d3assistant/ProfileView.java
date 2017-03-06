@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,9 @@ public class ProfileView extends View {
     private Paint penKills;
     private Paint penLevel;
 
+    public String getHeroID(){
+        return String.valueOf(this.heroProfileSimple.getId());
+    }
     public ProfileView(Context context,HeroProfileSimple heroProfileSimple) {
         super(context);
         this.heroProfileSimple = heroProfileSimple;
@@ -49,21 +53,21 @@ public class ProfileView extends View {
         penName.setStrokeJoin(Paint.Join.ROUND);
         penName.setStrokeCap(Paint.Cap.ROUND);
         penName.setStrokeWidth(3);
-        penName.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 22, getResources().getDisplayMetrics()));
+        penName.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
 
         penKills = new Paint(); //设置一个笔刷大小是3的黄色的画笔
         penKills.setColor(Color.LTGRAY);
         penKills.setStrokeJoin(Paint.Join.ROUND);
         penKills.setStrokeCap(Paint.Cap.ROUND);
         penKills.setStrokeWidth(1);
-        penKills.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+        penKills.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
 
         penLevel = new Paint(); //设置一个笔刷大小是3的黄色的画笔
         penLevel.setColor(Color.WHITE);
         penLevel.setStrokeJoin(Paint.Join.ROUND);
         penLevel.setStrokeCap(Paint.Cap.ROUND);
         penLevel.setStrokeWidth(1);
-        penLevel.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18, getResources().getDisplayMetrics()));
+        penLevel.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
 
     }
 
@@ -77,23 +81,25 @@ public class ProfileView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-        setMeasuredDimension(headBackgroundBitmap.getWidth(),headBackgroundBitmap.getHeight());
-
+        setMeasuredDimension((int)(headBackgroundBitmap.getWidth()*0.8),(int)(headBackgroundBitmap.getHeight()*0.8));
     }
     @Override
     protected void onDraw(Canvas canvas) {
         // canvas 即为白纸
-
-
-        canvas.drawBitmap(headBackgroundBitmap,0,0,null);
+        canvas.drawBitmap(headBackgroundBitmap,
+                new Rect(0,0,headBackgroundBitmap.getWidth(),headBackgroundBitmap.getHeight()),
+                new Rect(0,0,(int)(headBackgroundBitmap.getWidth()*0.8),(int)(headBackgroundBitmap.getHeight()*0.8)),
+                null);
         Bitmap bmp = heads.get(
                 (this.heroProfileSimple.get_class() +"_"+ this.heroProfileSimple.getGender()).replace("-", "_")
         );
         canvas.drawBitmap(
                 bmp,
-                54, 38, null);
+                new Rect(0,0,bmp.getWidth(),bmp.getHeight()),
+                new Rect(54,38,(int)(bmp.getWidth()*0.8)+54,(int)(bmp.getHeight()*0.8)+38),
+                null);
 
-        Rect nameRect = new Rect(0,760,600,200);
+        Rect nameRect = new Rect(0,608,480,160);
 
         Paint.FontMetricsInt fontMetrics = penName.getFontMetricsInt();
         // 转载请注明出处：http://blog.csdn.net/hursing
@@ -102,12 +108,18 @@ public class ProfileView extends View {
         penName.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(this.heroProfileSimple.getName(), nameRect.centerX(), baseline, penName);
 
-        canvas.drawText("消灭精英："+this.heroProfileSimple.getKillElites(),80,580,penKills);
-        canvas.drawText(Integer.toString(this.heroProfileSimple.getLevel()),500,580,penLevel);
+        canvas.drawText("消灭精英："+this.heroProfileSimple.getKillElites(),64,464,penKills);
+        int level = this.heroProfileSimple.getLevel();
+        if(level<10) {
+            canvas.drawText(Integer.toString(level), 410, 464, penLevel);
+        }
+        else{
+            canvas.drawText(Integer.toString(level), 400, 464, penLevel);
+        }
 
         Bitmap seasonPng = BitmapFactory.decodeResource(getResources(),R.drawable.season);
         if(Boolean.toString(this.heroProfileSimple.isSeasonal())=="true") {
-            canvas.drawBitmap(seasonPng, 500, 450, null);
+            canvas.drawBitmap(seasonPng, 400, 360, null);
         }
         //super.onDraw(canvas);
     }

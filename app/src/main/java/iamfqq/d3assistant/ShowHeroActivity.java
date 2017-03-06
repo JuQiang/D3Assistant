@@ -45,21 +45,18 @@ public class ShowHeroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_hero);
 
-        // my_child_toolbar is defined in the layout file
-        Toolbar toolbar =
-                (Toolbar) findViewById(R.id.showherotoolbar);
-
-        toolbar.setTitle("这里用英雄的名字");
-        setSupportActionBar(toolbar);
-
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
-
         Intent intent = this.getIntent();
         myHero = (Hero) intent.getSerializableExtra("myHero");
+
+        Toolbar toolbar =(Toolbar) findViewById(R.id.showherotoolbar);
+        toolbar.setTitle(myHero.getName());
+
+        setSupportActionBar(toolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
+
         InitView();
 
         D3API.setContext(this);

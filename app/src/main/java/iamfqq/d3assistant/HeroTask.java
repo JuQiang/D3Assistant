@@ -114,6 +114,7 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
             }
 
             hero.setItems(items);
+            hero.setName((new JSONObject(json)).getString("name"));
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

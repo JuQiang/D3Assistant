@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private Intent intentAddFriend;
+    private Intent intentShowProfile;
     private Intent intentShowHero;
 
     @Override
@@ -56,9 +58,34 @@ public class MainActivity extends AppCompatActivity {
 
         this.context = this;
         intentAddFriend = new Intent(this, AddFriendActivity.class);
+        intentShowProfile = new Intent(this, ShowProfileActivity.class);
         intentShowHero = new Intent(this, ShowHeroActivity.class);
 
         D3API.setContext(this);
+
+        ArrayList<Friend> friends = D3API.getMyFriends();
+        GridView gridView = (GridView) findViewById(R.id.gvFriends);
+        gridView.setAdapter(new FriendImageAdapter(context, friends));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (view == null) return;
+
+                final String battleTag = ((FriendView) view).getBattleTag();
+                final String nickname =  ((FriendView) view).getNickName();
+                ProfileTask pt = new ProfileTask(new TaskCompleted() {
+                    @Override
+                    public void OnTaskCompleted(Object result) {
+                        intentShowProfile.putExtra("myFriend",(CareerProfile) result);
+                        intentShowProfile.putExtra("myFriendNickname",nickname);
+                        startActivity(intentShowProfile);
+                    }
+                });
+                pt.execute(battleTag);
+
+            }
+        });
     }
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
@@ -80,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     //36760898
-                    ht.execute("方枪枪-5690", "38718388");//33575370
+                    ht.execute("方枪枪-5690", "36760898");//33575370
 
                     break;
             }
@@ -95,20 +122,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void myTest3(View view) {
-        ArrayList<Friend> friends = D3API.getMyFriends();
-        TextView tv = (TextView)findViewById(R.id.tvFriends);
-        String lines = "";
-        for(int i=0;i<friends.size();i++){
-            Friend friend = friends.get(i);
-            lines += friend.getProfileID();
-            lines+=",";
-            lines+=friend.getNickName();
-            lines+=",";
-            lines+="\r\n";
-        }
+    public void onFriendSelected(View view) {
 
-        tv.setText(lines);
     }
 
     public void myTest(View view) {

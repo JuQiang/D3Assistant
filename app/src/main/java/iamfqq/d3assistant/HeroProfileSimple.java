@@ -1,9 +1,11 @@
 package iamfqq.d3assistant;
 
+import java.io.Serializable;
+
 /**
  * Created by JuQiang on 9/6/2016.
  */
-public class HeroProfileSimple {
+public class HeroProfileSimple  implements Serializable {
     private int id;
     private String name;
     private String _class;

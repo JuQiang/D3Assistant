@@ -1,12 +1,13 @@
 package iamfqq.d3assistant;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by JuQiang on 2/22/2017.
  */
 
-public class CareerProfile {
+public class CareerProfile implements Serializable {
     private String battleTag;
     private int paragonLevel;
     private int paragonLevelSeason;

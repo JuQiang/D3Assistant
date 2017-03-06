@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">暗黑3助手</string>
-    <string name="idProfile">输入D3账号</string>
+    <string name="battleTag">战网ID</string>
 
 </resources>
