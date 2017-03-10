@@ -64,7 +64,7 @@ public class ProfileView extends View {
         penKills.setStrokeJoin(Paint.Join.ROUND);
         penKills.setStrokeCap(Paint.Cap.ROUND);
         penKills.setStrokeWidth(1);
-        penKills.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
+        penKills.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
 
         penLevel = new Paint(); //设置一个笔刷大小是3的黄色的画笔
         penLevel.setColor(Color.WHITE);

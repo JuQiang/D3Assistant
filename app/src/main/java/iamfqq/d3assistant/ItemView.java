@@ -1,6 +1,8 @@
 package iamfqq.d3assistant;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,8 +11,12 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -61,68 +67,96 @@ public class ItemView extends View {
     private Paint paintOrange;
     private Paint paintBlue;
     private Paint paintYellow;
-
+    private Paint paintName;
 
     private Hero hero;
     private Map<String, Item> items;
+    private Map<String, Rect> itemsRect;
 
+    private Intent intent;
     public void setHero(Hero hero) {
+
         this.hero = hero;
         items = this.hero.ItemList;
+        itemsRect = new HashMap<String, Rect>();
 
         itemBracers = hero.ItemList.get("bracers");
         if (itemBracers != null) {
             bmpBracers = D3API.DownloadBitmap(itemBracers.getIconUrl(), itemBracers.Icon);
         }
+        itemsRect.put("bracers", new Rect(786, 498, 786 + 201, 498 + 261));
+
         itemFeet = hero.ItemList.get("feet");
         if (itemFeet != null) {
             bmpFeet = D3API.DownloadBitmap(itemFeet.getIconUrl(), itemFeet.Icon);
         }
+        itemsRect.put("feet", new Rect(464, 1086, 464 + 201, 1086 + 270));
+
         itemHands = hero.ItemList.get("hands");
         if (itemHands != null) {
             bmpHands = D3API.DownloadBitmap(itemHands.getIconUrl(), itemHands.Icon);
         }
+        itemsRect.put("hands", new Rect(138, 495, 138 + 201, 495 + 264));
+
         itemHead = hero.ItemList.get("head");
         if (itemHead != null) {
             bmpHead = D3API.DownloadBitmap(itemHead.getIconUrl(), itemHead.Icon);
         }
+        itemsRect.put("head", new Rect(464, 123, 464 + 204, 123 + 204));
+
         itemLeftFinger = hero.ItemList.get("leftFinger");
         if (itemLeftFinger != null) {
             bmpLeftFinger = D3API.DownloadBitmap(itemLeftFinger.getIconUrl(), itemLeftFinger.Icon);
         }
+        itemsRect.put("leftFinger", new Rect(177, 798, 177 + 120, 798 + 120));
+
         itemLegs = hero.ItemList.get("legs");
         if (itemLegs != null) {
             bmpLegs = D3API.DownloadBitmap(itemLegs.getIconUrl(), itemLegs.Icon);
         }
+        itemsRect.put("legs", new Rect(464, 810, 464 + 201, 810 + 261));
+
         itemMainHand = hero.ItemList.get("mainHand");
         if (itemMainHand != null) {
             bmpMainHand = D3API.DownloadBitmap(itemMainHand.getIconUrl(), itemMainHand.Icon);
         }
+        itemsRect.put("mainHand", new Rect(138, 960, 138 + 204, 960 + 396));
+
         itemNeck = hero.ItemList.get("neck");
         if (itemNeck != null) {
             bmpNeck = D3API.DownloadBitmap(itemNeck.getIconUrl(), itemNeck.Icon);
         }
+        itemsRect.put("neck", new Rect(717, 260, 717 + 165, 260 + 165));
+
         itemOffHand = hero.ItemList.get("offHand");
         if (itemOffHand != null) {
             bmpOffHand = D3API.DownloadBitmap(itemOffHand.getIconUrl(), itemOffHand.Icon);
         }
+        itemsRect.put("offHand", new Rect(786, 960, 786 + 204, 960 + 396));
 
         itemRightFinger = hero.ItemList.get("rightFinger");
         if (itemRightFinger != null) {
             bmpRightFinger = D3API.DownloadBitmap(itemRightFinger.getIconUrl(), itemRightFinger.Icon);
         }
+        itemsRect.put("rightFinger", new Rect(825, 798, 825 + 120, 798 + 120));
+
         itemShoulders = hero.ItemList.get("shoulders");
         if (itemShoulders != null) {
             bmpShoulders = D3API.DownloadBitmap(itemShoulders.getIconUrl(), itemShoulders.Icon);
         }
+        itemsRect.put("shoulders", new Rect(216, 201, 216 + 201, 201 + 261));
+
         itemTorso = hero.ItemList.get("torso");
         if (itemTorso != null) {
             bmpTorso = D3API.DownloadBitmap(itemTorso.getIconUrl(), itemTorso.Icon);
         }
+        itemsRect.put("torso", new Rect(438, 336, 438 + 250, 336 + 346));
+
         itemWaist = hero.ItemList.get("waist");
         if (itemWaist != null) {
             bmpWaist = D3API.DownloadBitmap(itemWaist.getIconUrl(), itemWaist.Icon);
         }
+        itemsRect.put("waist", new Rect(438, 693, 438 + 246, 693 + 100));
     }
 
     public ItemView(Context context) {
@@ -132,6 +166,7 @@ public class ItemView extends View {
     public ItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        intent = new Intent(context,ShowItemTooltipActivity.class);
         bmpBackground = BitmapFactory.decodeResource(getResources(), R.drawable.barbarian_1_back);
         bmpEmptyIcon = BitmapFactory.decodeResource(getResources(), R.drawable.emptyicon);
 
@@ -141,17 +176,7 @@ public class ItemView extends View {
         bmpBackOrange = BitmapFactory.decodeResource(getResources(), R.drawable.orange);
 
         double scale = 0.8;
-        /* 产生reSize后的Bitmap对象
-        Matrix matrix = new Matrix();
-        matrix.postScale(0.625f, 0.625f);
 
-        jew1 = Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.jew1), 0, 0, 96, 96, matrix, true);
-        jew2 = Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.jew2), 0, 0, 96, 96, matrix, true);
-        jew3 = Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.jew3), 0, 0, 96, 96, matrix, true);
-        jew4 = Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.jew4), 0, 0, 96, 96, matrix, true);
-        jew5 = Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.jew5), 0, 0, 96, 96, matrix, true);
-        jew6 = Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.jew6), 0, 0, 96, 96, matrix, true);
-*/
         paintYellow = new Paint();
         paintOrange = new Paint();
         paintGreen = new Paint();
@@ -188,20 +213,34 @@ public class ItemView extends View {
         paintNope.setStrokeWidth(2);
         paintNope.setStyle(Paint.Style.STROKE);
 
-        /*
-        skills.put("skilll", BitmapFactory.decodeResource(getResources(),R.drawable.skilll));
-        skills.put("skillr", BitmapFactory.decodeResource(getResources(),R.drawable.skillr));
-        skills.put("skill1", BitmapFactory.decodeResource(getResources(),R.drawable.skill1));
-        skills.put("skill2", BitmapFactory.decodeResource(getResources(),R.drawable.skill2));
-        skills.put("skill3", BitmapFactory.decodeResource(getResources(),R.drawable.skill3));
-        skills.put("skill4", BitmapFactory.decodeResource(getResources(),R.drawable.skill4));
-        skills.put("skillborder", BitmapFactory.decodeResource(getResources(),R.drawable.skillborder));
+        paintName = new Paint(); //设置一个笔刷大小是3的黄色的画笔
+        paintName.setColor(Color.YELLOW);
+        paintName.setStrokeJoin(Paint.Join.ROUND);
+        paintName.setStrokeCap(Paint.Cap.ROUND);
+        paintName.setStrokeWidth(3);
+        paintName.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
 
-        this.iconName= attrs.getAttributeValue(null,"IconName");
-//        this.skillName= attrs.getAttributeValue(null,"SkillName");
-//        this.runeName= attrs.getAttributeValue(null,"RuneName");
-*/
+        this.setOnTouchListener(touchListener);
     }
+
+    private int touchX, touchY;
+    private OnTouchListener touchListener = new OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            touchX = (int) event.getX();
+            touchY = (int) event.getY();
+
+            String tooltip = getItemTooltip((int) event.getX(), (int) event.getY());
+            if(tooltip.isEmpty()==false){
+                intent.putExtra("stringItemTooltip", tooltip);
+                ((Activity)v.getContext()).startActivity(intent);
+                //startActivity(intent);
+            }
+
+            ItemView.super.postInvalidate();
+            return false;
+        }
+    };
 
     public ItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -244,15 +283,42 @@ public class ItemView extends View {
         }
     */
     //http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/unique_dagger_007_x1_demonhunter_male.png
+    //http://d3.blizzard.cn/action/profile/item?param=item/CogBCJb1yIoLEgcIBBVV4wJkHYxZMEcd5-3vCx2eT4PcHc6CwdsdeTI9qh0NDRyTMIteOJICQABQElgEYJICaisKDAgAEK60-dyBgIDgNhIbCM_spKYOEgcIBBVCLTepMI9SOABAAVgEkAEJgAFGpQGeT4PcrQGQEa7atQGqRZ8TuAHs1NCZBsABAhiqjZfADFACWAA
+    //http://d3.blizzard.cn/action/profile/career/%E6%96%B9%E6%9E%AA%E6%9E%AA-5690/36760898/skill/4
+
+    private String getItemTooltip(int x, int y) {
+        if(isPointInRect(x,y,itemsRect.get("bracers")) && itemBracers!=null)return itemBracers.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("feet")) && itemFeet!=null)return itemFeet.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("hands")) && itemHands!=null)return itemHands.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("head")) && itemHead!=null)return itemHead.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("leftFinger")) && itemLeftFinger!=null)return itemLeftFinger.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("legs")) && itemLegs!=null)return itemLegs.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("mainHand")) && itemMainHand!=null)return itemMainHand.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("neck")) && itemNeck!=null)return itemNeck.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("offHand")) && itemOffHand!=null)return itemOffHand.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("rightFinger")) && itemRightFinger!=null)return itemRightFinger.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("shoulders")) && itemShoulders!=null)return itemShoulders.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("torso")) && itemTorso!=null)return itemTorso.TooltipParams;
+        if(isPointInRect(x,y,itemsRect.get("waist")) && itemWaist!=null)return itemWaist.TooltipParams;
+
+        return "";
+    }
+
+    private boolean isPointInRect(int x, int y, Rect r){
+        return (x>=r.left && x<=r.right && y>=r.top && y<=r.bottom);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(bmpBackground, -1320, -350, null);
 
+        canvas.drawBitmap(bmpBackground, -1320, -350, null);
+        canvas.drawText(String.valueOf(touchX) + "," + String.valueOf(touchY),
+                120, 120, paintName);
 
         int left = 138, top = 960;
 
         if (itemMainHand != null) {
-            canvas.drawRect(left, top, left + 68 * 3, top + 132 * 3, GetPaint(itemMainHand.DisplayColor));
+            canvas.drawRect(itemsRect.get("mainHand"), GetPaint(itemMainHand.DisplayColor));
 
             Bitmap backMainHand = GetDisplayColorBitmap(itemMainHand.DisplayColor);
             if (backMainHand != null) {
@@ -281,7 +347,7 @@ public class ItemView extends View {
         top = 960;
 
         if (itemOffHand != null) {
-            canvas.drawRect(left, top, left + 68 * 3, top + 132 * 3, GetPaint(itemOffHand.DisplayColor));
+            canvas.drawRect(itemsRect.get("offHand"), GetPaint(itemOffHand.DisplayColor));
 
             Bitmap backOffHand = GetDisplayColorBitmap(itemOffHand.DisplayColor);
             if (backOffHand != null) {
@@ -310,7 +376,7 @@ public class ItemView extends View {
         top = 123;
 
         if (itemHead != null) {
-            canvas.drawRect(left, top, left + 68 * 3, top + 68 * 3, GetPaint(itemHead.DisplayColor));
+            canvas.drawRect(itemsRect.get("head"), GetPaint(itemHead.DisplayColor));
 
             Bitmap backHead = GetDisplayColorBitmap(itemHead.DisplayColor);
             if (backHead != null) {
@@ -337,7 +403,7 @@ public class ItemView extends View {
         left = 438;
         top = 336;
         if (itemTorso != null) {
-            canvas.drawRect(left, top, left + 250, top + 346, GetPaint(itemTorso.DisplayColor));
+            canvas.drawRect(itemsRect.get("torso"), GetPaint(itemTorso.DisplayColor));
 
             Bitmap backTorso = GetDisplayColorBitmap(itemTorso.DisplayColor);
             if (backTorso != null) {
@@ -364,7 +430,7 @@ public class ItemView extends View {
         left = 464;
         top = 1086;
         if (itemFeet != null) {
-            canvas.drawRect(left, top, left + 201, top + 270, GetPaint(itemFeet.DisplayColor));
+            canvas.drawRect(itemsRect.get("feet"), GetPaint(itemFeet.DisplayColor));
 
             Bitmap backFeet = GetDisplayColorBitmap(itemFeet.DisplayColor);
             if (backFeet != null) {
@@ -382,7 +448,7 @@ public class ItemView extends View {
         left = 138;
         top = 495;
         if (itemHands != null) {
-            canvas.drawRect(left, top, left + 201, top + 264, GetPaint(itemHands.DisplayColor));
+            canvas.drawRect(itemsRect.get("hands"), GetPaint(itemHands.DisplayColor));
             Bitmap backHands = GetDisplayColorBitmap(itemHands.DisplayColor);
             if (backHands != null) {
                 canvas.drawBitmap(backHands,
@@ -400,7 +466,7 @@ public class ItemView extends View {
         left = 216;
         top = 201;
         if (itemShoulders != null) {
-            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemShoulders.DisplayColor));
+            canvas.drawRect(itemsRect.get("shoulders"), GetPaint(itemShoulders.DisplayColor));
 
             Bitmap backShoulders = GetDisplayColorBitmap(itemShoulders.DisplayColor);
             if (backShoulders != null) {
@@ -418,7 +484,7 @@ public class ItemView extends View {
         left = 464;
         top = 810;
         if (itemLegs != null) {
-            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemLegs.DisplayColor));
+            canvas.drawRect(itemsRect.get("legs"), GetPaint(itemLegs.DisplayColor));
 
             Bitmap backLegs = GetDisplayColorBitmap(itemLegs.DisplayColor);
             if (backLegs != null) {
@@ -445,7 +511,7 @@ public class ItemView extends View {
         left = 786;
         top = 498;
         if (itemBracers != null) {
-            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemBracers.DisplayColor));
+            canvas.drawRect(itemsRect.get("bracers"), GetPaint(itemBracers.DisplayColor));
 
             Bitmap backBracers = GetDisplayColorBitmap(itemBracers.DisplayColor);
             if (backBracers != null) {
@@ -463,7 +529,7 @@ public class ItemView extends View {
         left = 438;
         top = 693;
         if (itemWaist != null) {
-            canvas.drawRect(left, top, left + 246, top + 100, GetPaint(itemWaist.DisplayColor));
+            canvas.drawRect(itemsRect.get("waist"), GetPaint(itemWaist.DisplayColor));
 
             Bitmap backWaist = GetDisplayColorBitmap(itemWaist.DisplayColor);
             if (backWaist != null) {
@@ -481,7 +547,7 @@ public class ItemView extends View {
         left = 825;
         top = 798;
         if (itemRightFinger != null) {
-            canvas.drawRect(left, top, left + 120, top + 120, GetPaint(itemRightFinger.DisplayColor));
+            canvas.drawRect(itemsRect.get("rightFinger"), GetPaint(itemRightFinger.DisplayColor));
 
             Bitmap backRightFinger = GetDisplayColorBitmap(itemRightFinger.DisplayColor);
             if (backRightFinger != null) {
@@ -508,7 +574,7 @@ public class ItemView extends View {
         left = 177;
         top = 798;
         if (itemLeftFinger != null) {
-            canvas.drawRect(left, top, left + 120, top + 120, GetPaint(itemLeftFinger.DisplayColor));
+            canvas.drawRect(itemsRect.get("leftFinger"), GetPaint(itemLeftFinger.DisplayColor));
 
             Bitmap backLeftFinger = GetDisplayColorBitmap(itemLeftFinger.DisplayColor);
             if (backLeftFinger != null) {
@@ -535,7 +601,7 @@ public class ItemView extends View {
         left = 717;
         top = 260;
         if (itemNeck != null) {
-            canvas.drawRect(left, top, left + 165, top + 165, GetPaint(itemNeck.DisplayColor));
+            canvas.drawRect(itemsRect.get("neck"), GetPaint(itemNeck.DisplayColor));
 
             Bitmap backNeck = GetDisplayColorBitmap(itemNeck.DisplayColor);
             if (backNeck != null) {

@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private Intent intentAddFriend;
+    private Intent intentTest;
     private Intent intentShowProfile;
     private Intent intentShowHero;
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.context = this;
         intentAddFriend = new Intent(this, AddFriendActivity.class);
+        intentTest = new Intent(this,ShowItemTooltipActivity.class);
         intentShowProfile = new Intent(this, ShowProfileActivity.class);
         intentShowHero = new Intent(this, ShowHeroActivity.class);
 
@@ -101,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_add:
                     intentAddFriend.putExtra("", "");
                     startActivity(intentAddFriend);
+                    break;
+                case R.id.action_test:
+                    intentTest.putExtra("", "");
+                    startActivity(intentTest);
                     break;
             }
             return true;
