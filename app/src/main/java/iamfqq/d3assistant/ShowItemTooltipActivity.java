@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.GridView;
+
+import static android.view.View.LAYER_TYPE_SOFTWARE;
 
 public class ShowItemTooltipActivity extends AppCompatActivity {
     Intent intent;
@@ -31,7 +34,7 @@ public class ShowItemTooltipActivity extends AppCompatActivity {
                 sb.append("<link rel=\"stylesheet\" href=\"http://d3.blizzard.cn/css/profile/hero.css\" type=\"text/css\" media=\"all\">").append("\r\n");
                 sb.append("<link rel=\"stylesheet\" href=\"http://d3.blizzard.cn/css/profile/d3.css\" type=\"text/css\" media=\"all\">").append("\r\n");
                 sb.append("<link rel=\"stylesheet\" href=\"http://d3.blizzard.cn/css/profile/tooltip.css\" type=\"text/css\" media=\"all\">").append("\r\n");
-                //sb.append("<meta name=\"viewport\" content=\"width = 300, minimum-scale=1\" />");
+                sb.append("<meta name=\"viewport\" content=\"width = 300, minimum-scale=0.5\" />");
                 sb.append("</head>").append("\r\n");
                 sb.append("<body style=\"background-color:black \">").append("\r\n");
                 sb.append(html).append("\r\n");
@@ -39,11 +42,9 @@ public class ShowItemTooltipActivity extends AppCompatActivity {
                 sb.append("</html>").append("\r\n");
 
                 WebView browser = (WebView) findViewById(R.id.wvItemTooltip);
-                browser.setVisibility(View.INVISIBLE);
                 //http://blog.csdn.net/top_code/article/details/9163597
                 //browser.loadData(sb.toString(),"text/html","gb2312");
                 browser.loadDataWithBaseURL(null, sb.toString(), "text/html", "UTF-8", null);
-                browser.setVisibility(View.VISIBLE);
             }
         });
         it.execute(stringItemTooltip);
