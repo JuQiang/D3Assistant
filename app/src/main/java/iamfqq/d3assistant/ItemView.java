@@ -68,60 +68,60 @@ public class ItemView extends View {
 
     public void setHero(Hero hero) {
         this.hero = hero;
-        items = this.hero.getItems();
+        items = this.hero.ItemList;
 
-        itemBracers = hero.getItems().get("bracers");
+        itemBracers = hero.ItemList.get("bracers");
         if (itemBracers != null) {
-            bmpBracers = D3API.DownloadBitmap(itemBracers.getIconUrl(), itemBracers.getIcon());
+            bmpBracers = D3API.DownloadBitmap(itemBracers.getIconUrl(), itemBracers.Icon);
         }
-        itemFeet = hero.getItems().get("feet");
+        itemFeet = hero.ItemList.get("feet");
         if (itemFeet != null) {
-            bmpFeet = D3API.DownloadBitmap(itemFeet.getIconUrl(), itemFeet.getIcon());
+            bmpFeet = D3API.DownloadBitmap(itemFeet.getIconUrl(), itemFeet.Icon);
         }
-        itemHands = hero.getItems().get("hands");
+        itemHands = hero.ItemList.get("hands");
         if (itemHands != null) {
-            bmpHands = D3API.DownloadBitmap(itemHands.getIconUrl(), itemHands.getIcon());
+            bmpHands = D3API.DownloadBitmap(itemHands.getIconUrl(), itemHands.Icon);
         }
-        itemHead = hero.getItems().get("head");
+        itemHead = hero.ItemList.get("head");
         if (itemHead != null) {
-            bmpHead = D3API.DownloadBitmap(itemHead.getIconUrl(), itemHead.getIcon());
+            bmpHead = D3API.DownloadBitmap(itemHead.getIconUrl(), itemHead.Icon);
         }
-        itemLeftFinger = hero.getItems().get("leftFinger");
+        itemLeftFinger = hero.ItemList.get("leftFinger");
         if (itemLeftFinger != null) {
-            bmpLeftFinger = D3API.DownloadBitmap(itemLeftFinger.getIconUrl(), itemLeftFinger.getIcon());
+            bmpLeftFinger = D3API.DownloadBitmap(itemLeftFinger.getIconUrl(), itemLeftFinger.Icon);
         }
-        itemLegs = hero.getItems().get("legs");
+        itemLegs = hero.ItemList.get("legs");
         if (itemLegs != null) {
-            bmpLegs = D3API.DownloadBitmap(itemLegs.getIconUrl(), itemLegs.getIcon());
+            bmpLegs = D3API.DownloadBitmap(itemLegs.getIconUrl(), itemLegs.Icon);
         }
-        itemMainHand = hero.getItems().get("mainHand");
+        itemMainHand = hero.ItemList.get("mainHand");
         if (itemMainHand != null) {
-            bmpMainHand = D3API.DownloadBitmap(itemMainHand.getIconUrl(), itemMainHand.getIcon());
+            bmpMainHand = D3API.DownloadBitmap(itemMainHand.getIconUrl(), itemMainHand.Icon);
         }
-        itemNeck = hero.getItems().get("neck");
+        itemNeck = hero.ItemList.get("neck");
         if (itemNeck != null) {
-            bmpNeck = D3API.DownloadBitmap(itemNeck.getIconUrl(), itemNeck.getIcon());
+            bmpNeck = D3API.DownloadBitmap(itemNeck.getIconUrl(), itemNeck.Icon);
         }
-        itemOffHand = hero.getItems().get("offHand");
+        itemOffHand = hero.ItemList.get("offHand");
         if (itemOffHand != null) {
-            bmpOffHand = D3API.DownloadBitmap(itemOffHand.getIconUrl(), itemOffHand.getIcon());
+            bmpOffHand = D3API.DownloadBitmap(itemOffHand.getIconUrl(), itemOffHand.Icon);
         }
 
-        itemRightFinger = hero.getItems().get("rightFinger");
+        itemRightFinger = hero.ItemList.get("rightFinger");
         if (itemRightFinger != null) {
-            bmpRightFinger = D3API.DownloadBitmap(itemRightFinger.getIconUrl(), itemRightFinger.getIcon());
+            bmpRightFinger = D3API.DownloadBitmap(itemRightFinger.getIconUrl(), itemRightFinger.Icon);
         }
-        itemShoulders = hero.getItems().get("shoulders");
+        itemShoulders = hero.ItemList.get("shoulders");
         if (itemShoulders != null) {
-            bmpShoulders = D3API.DownloadBitmap(itemShoulders.getIconUrl(), itemShoulders.getIcon());
+            bmpShoulders = D3API.DownloadBitmap(itemShoulders.getIconUrl(), itemShoulders.Icon);
         }
-        itemTorso = hero.getItems().get("torso");
+        itemTorso = hero.ItemList.get("torso");
         if (itemTorso != null) {
-            bmpTorso = D3API.DownloadBitmap(itemTorso.getIconUrl(), itemTorso.getIcon());
+            bmpTorso = D3API.DownloadBitmap(itemTorso.getIconUrl(), itemTorso.Icon);
         }
-        itemWaist = hero.getItems().get("waist");
+        itemWaist = hero.ItemList.get("waist");
         if (itemWaist != null) {
-            bmpWaist = D3API.DownloadBitmap(itemWaist.getIconUrl(), itemWaist.getIcon());
+            bmpWaist = D3API.DownloadBitmap(itemWaist.getIconUrl(), itemWaist.Icon);
         }
     }
 
@@ -252,9 +252,9 @@ public class ItemView extends View {
         int left = 138, top = 960;
 
         if (itemMainHand != null) {
-            canvas.drawRect(left, top, left + 68 * 3, top + 132 * 3, GetPaint(itemMainHand.getDisplayColor()));
+            canvas.drawRect(left, top, left + 68 * 3, top + 132 * 3, GetPaint(itemMainHand.DisplayColor));
 
-            Bitmap backMainHand = GetDisplayColorBitmap(itemMainHand.getDisplayColor());
+            Bitmap backMainHand = GetDisplayColorBitmap(itemMainHand.DisplayColor);
             if (backMainHand != null) {
                 canvas.drawBitmap(backMainHand,
                         new Rect(0, 0, 201, 201),
@@ -268,11 +268,11 @@ public class ItemView extends View {
         }
 
         if (itemMainHand != null) {
-            for (int i = 0; i < itemMainHand.getSocketCount(); i++) {
+            for (int i = 0; i < itemMainHand.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 60, top + 160, null);
             }
-            for (int i = 0; i < itemMainHand.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemMainHand.getGems().get(i) + ".png", itemMainHand.getGems().get(i));
+            for (int i = 0; i < itemMainHand.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemMainHand.GemList.get(i) + ".png", itemMainHand.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 78, top + 177, null);
             }
         }
@@ -281,9 +281,9 @@ public class ItemView extends View {
         top = 960;
 
         if (itemOffHand != null) {
-            canvas.drawRect(left, top, left + 68 * 3, top + 132 * 3, GetPaint(itemOffHand.getDisplayColor()));
+            canvas.drawRect(left, top, left + 68 * 3, top + 132 * 3, GetPaint(itemOffHand.DisplayColor));
 
-            Bitmap backOffHand = GetDisplayColorBitmap(itemOffHand.getDisplayColor());
+            Bitmap backOffHand = GetDisplayColorBitmap(itemOffHand.DisplayColor);
             if (backOffHand != null) {
                 canvas.drawBitmap(backOffHand,
                         new Rect(0, 0, 201, 201),
@@ -297,11 +297,11 @@ public class ItemView extends View {
         }
 
         if (itemOffHand != null) {
-            for (int i = 0; i < itemOffHand.getSocketCount(); i++) {
+            for (int i = 0; i < itemOffHand.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 60, top + 160, null);
             }
-            for (int i = 0; i < itemOffHand.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemOffHand.getGems().get(i) + ".png", itemOffHand.getGems().get(i));
+            for (int i = 0; i < itemOffHand.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemOffHand.GemList.get(i) + ".png", itemOffHand.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 78, top + 177, null);
             }
         }
@@ -310,11 +310,11 @@ public class ItemView extends View {
         top = 123;
 
         if (itemHead != null) {
-            canvas.drawRect(left, top, left + 68 * 3, top + 68 * 3, GetPaint(itemHead.getDisplayColor()));
+            canvas.drawRect(left, top, left + 68 * 3, top + 68 * 3, GetPaint(itemHead.DisplayColor));
 
-            Bitmap backHead = GetDisplayColorBitmap(itemHead.getDisplayColor());
+            Bitmap backHead = GetDisplayColorBitmap(itemHead.DisplayColor);
             if (backHead != null) {
-                canvas.drawBitmap(GetDisplayColorBitmap(items.get("head").getDisplayColor()),
+                canvas.drawBitmap(GetDisplayColorBitmap(items.get("head").DisplayColor),
                         new Rect(0, 0, 201, 201),
                         new Rect(left + 1 * 3, top + 1 * 3, left + 2 * 3 + 192, top + 2 * 3 + 192), null);
             }
@@ -325,11 +325,11 @@ public class ItemView extends View {
                     new Rect(left + 2 * 3, top - 24 * 3, left + 2 * 3 + bmpHead.getWidth() * 3, top - 24 * 3 + bmpHead.getHeight() * 3), null);
         }
         if (itemHead != null) {
-            for (int i = 0; i < itemHead.getSocketCount(); i++) {
+            for (int i = 0; i < itemHead.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 60, top + 60, null);
             }
-            for (int i = 0; i < itemHead.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemHead.getGems().get(i) + ".png", itemHead.getGems().get(i));
+            for (int i = 0; i < itemHead.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemHead.GemList.get(i) + ".png", itemHead.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 78, top + 78, null);
             }
         }
@@ -337,9 +337,9 @@ public class ItemView extends View {
         left = 438;
         top = 336;
         if (itemTorso != null) {
-            canvas.drawRect(left, top, left + 250, top + 346, GetPaint(itemTorso.getDisplayColor()));
+            canvas.drawRect(left, top, left + 250, top + 346, GetPaint(itemTorso.DisplayColor));
 
-            Bitmap backTorso = GetDisplayColorBitmap(itemTorso.getDisplayColor());
+            Bitmap backTorso = GetDisplayColorBitmap(itemTorso.DisplayColor);
             if (backTorso != null) {
                 canvas.drawBitmap(backTorso,
                         new Rect(0, 0, 201, 201),
@@ -352,11 +352,11 @@ public class ItemView extends View {
                     new Rect(left + 2 * 3, top - 24 * 3, left + 2 * 3 + bmpTorso.getWidth() * 3, top - 24 * 3 + bmpTorso.getHeight() * 3), null);
         }
         if (itemTorso != null) {
-            for (int i = 0; i < itemTorso.getSocketCount(); i++) {
+            for (int i = 0; i < itemTorso.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 85, top + 20 + 100 * i, null);
             }
-            for (int i = 0; i < itemTorso.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemTorso.getGems().get(i) + ".png", itemTorso.getGems().get(i));
+            for (int i = 0; i < itemTorso.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemTorso.GemList.get(i) + ".png", itemTorso.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 103, top + 38 + 100 * i, null);
             }
         }
@@ -364,9 +364,9 @@ public class ItemView extends View {
         left = 464;
         top = 1086;
         if (itemFeet != null) {
-            canvas.drawRect(left, top, left + 201, top + 270, GetPaint(itemFeet.getDisplayColor()));
+            canvas.drawRect(left, top, left + 201, top + 270, GetPaint(itemFeet.DisplayColor));
 
-            Bitmap backFeet = GetDisplayColorBitmap(itemFeet.getDisplayColor());
+            Bitmap backFeet = GetDisplayColorBitmap(itemFeet.DisplayColor);
             if (backFeet != null) {
                 canvas.drawBitmap(backFeet,
                         new Rect(0, 0, 201, 201),
@@ -382,8 +382,8 @@ public class ItemView extends View {
         left = 138;
         top = 495;
         if (itemHands != null) {
-            canvas.drawRect(left, top, left + 201, top + 264, GetPaint(itemHands.getDisplayColor()));
-            Bitmap backHands = GetDisplayColorBitmap(itemHands.getDisplayColor());
+            canvas.drawRect(left, top, left + 201, top + 264, GetPaint(itemHands.DisplayColor));
+            Bitmap backHands = GetDisplayColorBitmap(itemHands.DisplayColor);
             if (backHands != null) {
                 canvas.drawBitmap(backHands,
                         new Rect(0, 0, 201, 201),
@@ -400,9 +400,9 @@ public class ItemView extends View {
         left = 216;
         top = 201;
         if (itemShoulders != null) {
-            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemShoulders.getDisplayColor()));
+            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemShoulders.DisplayColor));
 
-            Bitmap backShoulders = GetDisplayColorBitmap(itemShoulders.getDisplayColor());
+            Bitmap backShoulders = GetDisplayColorBitmap(itemShoulders.DisplayColor);
             if (backShoulders != null) {
                 canvas.drawBitmap(backShoulders,
                         new Rect(0, 0, 201, 201),
@@ -418,9 +418,9 @@ public class ItemView extends View {
         left = 464;
         top = 810;
         if (itemLegs != null) {
-            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemLegs.getDisplayColor()));
+            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemLegs.DisplayColor));
 
-            Bitmap backLegs = GetDisplayColorBitmap(itemLegs.getDisplayColor());
+            Bitmap backLegs = GetDisplayColorBitmap(itemLegs.DisplayColor);
             if (backLegs != null) {
                 canvas.drawBitmap(backLegs,
                         new Rect(0, 0, 201, 201),
@@ -433,11 +433,11 @@ public class ItemView extends View {
                     new Rect(left + 2 * 3, top - 20 * 3, left + 2 * 3 + bmpLegs.getWidth() * 3, top - 20 * 3 + bmpLegs.getHeight() * 3), null);
         }
         if (itemLegs != null) {
-            for (int i = 0; i < itemLegs.getSocketCount(); i++) {
+            for (int i = 0; i < itemLegs.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 60, top + 20 + 100 * i, null);
             }
-            for (int i = 0; i < itemLegs.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemLegs.getGems().get(i) + ".png", itemLegs.getGems().get(i));
+            for (int i = 0; i < itemLegs.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemLegs.GemList.get(i) + ".png", itemLegs.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 78, top + 38 + 100 * i, null);
             }
         }
@@ -445,9 +445,9 @@ public class ItemView extends View {
         left = 786;
         top = 498;
         if (itemBracers != null) {
-            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemBracers.getDisplayColor()));
+            canvas.drawRect(left, top, left + 201, top + 261, GetPaint(itemBracers.DisplayColor));
 
-            Bitmap backBracers = GetDisplayColorBitmap(itemBracers.getDisplayColor());
+            Bitmap backBracers = GetDisplayColorBitmap(itemBracers.DisplayColor);
             if (backBracers != null) {
                 canvas.drawBitmap(backBracers,
                         new Rect(0, 0, 201, 201),
@@ -463,9 +463,9 @@ public class ItemView extends View {
         left = 438;
         top = 693;
         if (itemWaist != null) {
-            canvas.drawRect(left, top, left + 246, top + 100, GetPaint(itemWaist.getDisplayColor()));
+            canvas.drawRect(left, top, left + 246, top + 100, GetPaint(itemWaist.DisplayColor));
 
-            Bitmap backWaist = GetDisplayColorBitmap(itemWaist.getDisplayColor());
+            Bitmap backWaist = GetDisplayColorBitmap(itemWaist.DisplayColor);
             if (backWaist != null) {
                 canvas.drawBitmap(backWaist,
                         new Rect(0, 0, 201, 201),
@@ -481,9 +481,9 @@ public class ItemView extends View {
         left = 825;
         top = 798;
         if (itemRightFinger != null) {
-            canvas.drawRect(left, top, left + 120, top + 120, GetPaint(itemRightFinger.getDisplayColor()));
+            canvas.drawRect(left, top, left + 120, top + 120, GetPaint(itemRightFinger.DisplayColor));
 
-            Bitmap backRightFinger = GetDisplayColorBitmap(itemRightFinger.getDisplayColor());
+            Bitmap backRightFinger = GetDisplayColorBitmap(itemRightFinger.DisplayColor);
             if (backRightFinger != null) {
                 canvas.drawBitmap(backRightFinger,
                         new Rect(0, 0, 201, 201),
@@ -496,11 +496,11 @@ public class ItemView extends View {
                     new Rect(left + 2 * 3 - 39, top - 12 * 3, left + 2 * 3 - 39 + bmpRightFinger.getWidth() * 3, top - 12 * 3 + bmpRightFinger.getHeight() * 3), null);
         }
         if (itemRightFinger != null) {
-            for (int i = 0; i < itemRightFinger.getSocketCount(); i++) {
+            for (int i = 0; i < itemRightFinger.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 15, top + 15, null);
             }
-            for (int i = 0; i < itemRightFinger.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemRightFinger.getGems().get(i) + ".png", itemRightFinger.getGems().get(i));
+            for (int i = 0; i < itemRightFinger.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemRightFinger.GemList.get(i) + ".png", itemRightFinger.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 33, top + 33, null);
             }
         }
@@ -508,9 +508,9 @@ public class ItemView extends View {
         left = 177;
         top = 798;
         if (itemLeftFinger != null) {
-            canvas.drawRect(left, top, left + 120, top + 120, GetPaint(itemLeftFinger.getDisplayColor()));
+            canvas.drawRect(left, top, left + 120, top + 120, GetPaint(itemLeftFinger.DisplayColor));
 
-            Bitmap backLeftFinger = GetDisplayColorBitmap(itemLeftFinger.getDisplayColor());
+            Bitmap backLeftFinger = GetDisplayColorBitmap(itemLeftFinger.DisplayColor);
             if (backLeftFinger != null) {
                 canvas.drawBitmap(backLeftFinger,
                         new Rect(0, 0, 201, 201),
@@ -523,11 +523,11 @@ public class ItemView extends View {
                     new Rect(left + 2 * 3 - 39, top - 12 * 3, left + 2 * 3 - 39 + bmpLeftFinger.getWidth() * 3, top - 12 * 3 + bmpLeftFinger.getHeight() * 3), null);
         }
         if (itemLeftFinger != null) {
-            for (int i = 0; i < itemLeftFinger.getSocketCount(); i++) {
+            for (int i = 0; i < itemLeftFinger.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 15, top + 15, null);
             }
-            for (int i = 0; i < itemLeftFinger.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemLeftFinger.getGems().get(i) + ".png", itemLeftFinger.getGems().get(i));
+            for (int i = 0; i < itemLeftFinger.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemLeftFinger.GemList.get(i) + ".png", itemLeftFinger.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 33, top + 33, null);
             }
         }
@@ -535,9 +535,9 @@ public class ItemView extends View {
         left = 717;
         top = 260;
         if (itemNeck != null) {
-            canvas.drawRect(left, top, left + 165, top + 165, GetPaint(itemNeck.getDisplayColor()));
+            canvas.drawRect(left, top, left + 165, top + 165, GetPaint(itemNeck.DisplayColor));
 
-            Bitmap backNeck = GetDisplayColorBitmap(itemNeck.getDisplayColor());
+            Bitmap backNeck = GetDisplayColorBitmap(itemNeck.DisplayColor);
             if (backNeck != null) {
                 canvas.drawBitmap(backNeck,
                         new Rect(0, 0, 201, 201),
@@ -550,11 +550,11 @@ public class ItemView extends View {
                     new Rect(left + 2 * 3 - 21, top - 6 * 3, left + 2 * 3 - 21 + bmpNeck.getWidth() * 3, top - 6 * 3 + bmpNeck.getHeight() * 3), null);
         }
         if (itemNeck != null) {
-            for (int i = 0; i < itemNeck.getSocketCount(); i++) {
+            for (int i = 0; i < itemNeck.SocketCount; i++) {
                 canvas.drawBitmap(bmpEmptyIcon, left + 36, top + 36, null);
             }
-            for (int i = 0; i < itemNeck.getGems().size(); i++) {
-                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemNeck.getGems().get(i) + ".png", itemNeck.getGems().get(i));
+            for (int i = 0; i < itemNeck.GemList.size(); i++) {
+                Bitmap bmp = D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + itemNeck.GemList.get(i) + ".png", itemNeck.GemList.get(i));
                 canvas.drawBitmap(bmp, left + 54, top + 54, null);
             }
         }

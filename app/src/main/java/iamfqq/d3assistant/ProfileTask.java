@@ -5,6 +5,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -24,7 +25,9 @@ import java.text.DecimalFormat;
 public class ProfileTask extends AsyncTask<String, Integer, CareerProfile> {
     private TaskCompleted listner;
 
-    public ProfileTask(){}
+    public ProfileTask() {
+    }
+
     public ProfileTask(TaskCompleted listner) {
         this.listner = listner;
     }
@@ -33,31 +36,23 @@ public class ProfileTask extends AsyncTask<String, Integer, CareerProfile> {
     protected CareerProfile doInBackground(String... params) {
         HttpURLConnection urlConnection = null;
         CareerProfile careerProfile = new CareerProfile();
+        String pid = params[0].toLowerCase();
+        boolean cached = false;
+        if (params[1] == "true") cached = true;
+
+        String urlString = "https://api.battlenet.com.cn/d3/profile/" + pid + "/?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4";
+        String ret = D3API.DownloadString(urlString, cached, pid);
 
         try {
-            URL url = new URL("https://api.battlenet.com.cn/d3/profile/"+params[0]+"/?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuffer buffer = new StringBuffer();
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line);
-            }
-
-            reader.close();
-            in.close();
-
-            JSONObject jsonProfile = new JSONObject(buffer.toString());
-            careerProfile.setBattleTag(jsonProfile.getString("battleTag").replace("#","-"));
-            careerProfile.setParagonLevel(jsonProfile.getInt("paragonLevel"));
-            careerProfile.setParagonLevelSeason(jsonProfile.getInt("paragonLevelSeason"));
-            careerProfile.setGuildName(jsonProfile.getString("guildName"));
-            careerProfile.setLastHeroPlayed(jsonProfile.getLong("lastHeroPlayed"));
-            careerProfile.setLastUpdated(jsonProfile.getLong("lastUpdated"));
-            careerProfile.setKillsMonsters(jsonProfile.getJSONObject("kills").getInt("monsters"));
-            careerProfile.setKillsElites(jsonProfile.getJSONObject("kills").getInt("elites"));
+            JSONObject jsonProfile = new JSONObject(ret);
+            careerProfile.battleTag=(jsonProfile.getString("battleTag").replace("#", "-").toLowerCase());
+            careerProfile.paragonLevel=(jsonProfile.getInt("paragonLevel"));
+            careerProfile.paragonLevelSeason=(jsonProfile.getInt("paragonLevelSeason"));
+            careerProfile.guildName=(jsonProfile.getString("guildName"));
+            careerProfile.lastHeroPlayed=(jsonProfile.getLong("lastHeroPlayed"));
+            careerProfile.lastUpdated=(jsonProfile.getLong("lastUpdated"));
+            careerProfile.killsMonsters=(jsonProfile.getJSONObject("kills").getInt("monsters"));
+            careerProfile.killsElites=(jsonProfile.getJSONObject("kills").getInt("elites"));
 
 
             JSONArray jsonArray = jsonProfile.getJSONArray("heroes");
@@ -71,33 +66,25 @@ public class ProfileTask extends AsyncTask<String, Integer, CareerProfile> {
                 JSONObject jsonHero = (JSONObject) jsonArray.opt(i);
 
                 HeroProfileSimple heroSimple = new HeroProfileSimple();
-                heroSimple.setId(jsonHero.getInt("id"));
-                heroSimple.setName(jsonHero.getString("name"));
-                heroSimple.set_class(jsonHero.getString("class"));
-                heroSimple.setGender(jsonHero.getInt("gender"));
-                heroSimple.setLevel(jsonHero.getInt("level"));
-                heroSimple.setKillElites(jsonHero.getJSONObject("kills").getInt("elites"));
-                heroSimple.setParagonLevel(jsonHero.getInt("paragonLevel"));
-                heroSimple.setHardcore(jsonHero.getBoolean("hardcore"));
-                heroSimple.setSeasonal(jsonHero.getBoolean("seasonal"));
-                heroSimple.setDead(jsonHero.getBoolean("dead"));
-                heroSimple.setLastUpdated(jsonHero.getInt("last-updated"));
+                heroSimple.ID=(jsonHero.getInt("id"));
+                heroSimple.Name=(jsonHero.getString("name"));
+                heroSimple.Class=(jsonHero.getString("class"));
+                heroSimple.Gender=(jsonHero.getInt("gender"));
+                heroSimple.Level=(jsonHero.getInt("level"));
+                heroSimple.KillElites=(jsonHero.getJSONObject("kills").getInt("elites"));
+                heroSimple.ParagonLevel=(jsonHero.getInt("paragonLevel"));
+                heroSimple.Hardcore=(jsonHero.getBoolean("hardcore"));
+                heroSimple.Seasonal=(jsonHero.getBoolean("seasonal"));
+                heroSimple.Dead=(jsonHero.getBoolean("dead"));
+                heroSimple.LastUpdated=(jsonHero.getInt("last-updated"));
 
-                careerProfile.getHeroes().add(heroSimple);
+                careerProfile.heroes.add(heroSimple);
             }
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
         return careerProfile;
     }
 

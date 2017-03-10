@@ -24,8 +24,8 @@ public class CareerImageAdapter extends BaseAdapter {
         this.context = context;
         this.careerProfile = careerProfile;
 
-        for (int i = 0; i < careerProfile.getHeroes().size(); i++) {
-            ProfileView pv = new ProfileView(this.context, careerProfile.getHeroes().get(i));
+        for (int i = 0; i < careerProfile.heroes.size(); i++) {
+            ProfileView pv = new ProfileView(this.context, careerProfile.heroes.get(i));
             pv.setPadding(8, 8, 8, 8);//每个图像之间的间距
 
             viewCache.put(i, pv);
@@ -34,7 +34,7 @@ public class CareerImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        int count = this.careerProfile.getHeroes().size();
+        int count = this.careerProfile.heroes.size();
         return count;
     }
 

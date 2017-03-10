@@ -6,16 +6,10 @@ package iamfqq.d3assistant;
 
 public class Friend {
     public Friend(String profileID, String nickName){
-        this.profileID = profileID;
-        this.nickName = nickName;
+        this.ProfileID = profileID;
+        this.NickName = nickName;
     }
-    public String getProfileID() {
-        return profileID;
-    }
-    public String profileID;
+    public String ProfileID;
 
-    public String getNickName() {
-        return nickName;
-    }
-    public String nickName;
+    public String NickName;
 }

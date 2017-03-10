@@ -27,10 +27,10 @@ public class FriendView extends View {
     private int width, height,index;
 
     public String getBattleTag(){
-        return this.friend.getProfileID();
+        return this.friend.ProfileID;
     }
     public String getNickName(){
-        return this.friend.getNickName();
+        return this.friend.NickName;
     }
     public FriendView(Context context, int index, Friend friend) {
         super(context);
@@ -68,7 +68,7 @@ public class FriendView extends View {
                 new Rect(0,0,width,height),
                 new Rect(0,0,width/4,height/4),
                 null);
-        canvas.drawText(this.friend.nickName, width/4+8*3, height/4/2+21, penName);
+        canvas.drawText(this.friend.NickName, width/4+8*3, height/4/2+21, penName);
     }
 
 }

@@ -1,20 +1,17 @@
 package iamfqq.d3assistant;
 
 import android.os.AsyncTask;
+import android.os.Message;
+import android.widget.ProgressBar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Handler;
 
 /**
  * Created by JuQiang on 2/25/2017.
@@ -27,64 +24,67 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
         this.listner = listner;
     }
 
+
     @Override
     protected Hero doInBackground(String... params) {
         HttpURLConnection urlConnection = null;
         Hero hero = new Hero();
+        String pid = params[0];
+        String hid = params[1];
+        boolean cached = false;
+        if (params[2] == "true") cached = true;
+
+        String urlString = "https://api.battlenet.com.cn/d3/profile/" + pid + "/hero/" + hid + "?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4";
+        String json = D3API.DownloadString(urlString, cached, hid);
 
         try {
-            URL url = new URL("https://api.battlenet.com.cn/d3/profile/"+params[0]+"/hero/"+params[1]+"?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuffer buffer = new StringBuffer();
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line);
-            }
-
-            reader.close();
-            in.close();
-            String json = buffer.toString();
-
             JSONObject jsonStats = new JSONObject(json).getJSONObject("stats");
             Stat stat = new Stat();
 
-            stat.setArcaneResist(jsonStats.getInt("arcaneResist"));
-            stat.setArmor(jsonStats.getInt("armor"));
-            stat.setAttackSpeed(jsonStats.getDouble("attackSpeed"));
-            stat.setBlockAmountMax((int) (jsonStats.getDouble("blockAmountMax") * 100.0));
-            stat.setBlockAmountMin((int) (jsonStats.getDouble("blockAmountMin") * 100.0));
-            stat.setBlockChance((int) (jsonStats.getDouble("blockChance") * 100.0));
-            stat.setColdResist(jsonStats.getInt("coldResist"));
-            stat.setCritChance((int) (jsonStats.getDouble("critChance") * 100.0));
-            stat.setCritDamage((int) (jsonStats.getDouble("critDamage") * 100.0));
-            stat.setDamage(jsonStats.getInt("damage"));
-            stat.setDamageIncrease((int) (jsonStats.getDouble("damageIncrease") * 100.0));
-            stat.setDamageReduction((int) (jsonStats.getDouble("damageReduction") * 100.0));
-            stat.setDexterity(jsonStats.getInt("dexterity"));
-            stat.setFireResist(jsonStats.getInt("fireResist"));
-            stat.setGoldFind((int) (jsonStats.getDouble("goldFind") * 100.0));
-            stat.setHealing(jsonStats.getInt("healing"));
-            stat.setIntelligence(jsonStats.getInt("intelligence"));
-            stat.setLife(jsonStats.getInt("life"));
-            stat.setLifeOnHit(jsonStats.getInt("lifeOnHit"));
-            stat.setLifePerKill(jsonStats.getInt("lifePerKill"));
-            stat.setLifePerKill(jsonStats.getInt("lifePerKill"));
-            stat.setLightningResist(jsonStats.getInt("lightningResist"));
-            stat.setLifeSteal(jsonStats.getInt("lifeSteal"));
-            stat.setMagicFind((int) (jsonStats.getDouble("magicFind") * 100.0));
-            stat.setPhysicalResist(jsonStats.getInt("physicalResist"));
-            stat.setPoisonResist(jsonStats.getInt("poisonResist"));
-            stat.setPrimaryResource(jsonStats.getInt("primaryResource"));
-            stat.setSecondaryResource(jsonStats.getInt("secondaryResource"));
-            stat.setStrength(jsonStats.getInt("strength"));
-            stat.setToughness((int)(jsonStats.getDouble("toughness")));
-            stat.setThorns(jsonStats.getInt("thorns"));
-            stat.setVitality(jsonStats.getInt("vitality"));
+            stat.ArcaneResist = (jsonStats.getInt("arcaneResist"));
+            stat.Armor = (jsonStats.getInt("armor"));
+            stat.AttackSpeed = (jsonStats.getDouble("attackSpeed"));
+            stat.BlockAmountMax = ((int) (jsonStats.getDouble("blockAmountMax") * 100.0));
+            stat.BlockAmountMin = ((int) (jsonStats.getDouble("blockAmountMin") * 100.0));
+            stat.BlockChance = ((int) (jsonStats.getDouble("blockChance") * 100.0));
+            stat.ColdResist = (jsonStats.getInt("coldResist"));
+            stat.CritChance = ((int) (jsonStats.getDouble("critChance") * 100.0));
+            stat.CritDamage = ((int) (jsonStats.getDouble("critDamage") * 100.0));
+            stat.Damage = (jsonStats.getInt("damage"));
+            stat.DamageIncrease = ((int) (jsonStats.getDouble("damageIncrease") * 100.0));
+            stat.DamageReduction = ((int) (jsonStats.getDouble("damageReduction") * 100.0));
+            stat.Dexterity = (jsonStats.getInt("dexterity"));
+            stat.FireResist = (jsonStats.getInt("fireResist"));
+            stat.GoldFind = ((int) (jsonStats.getDouble("goldFind") * 100.0));
+            stat.Healing = (jsonStats.getInt("healing"));
+            stat.Intelligence = (jsonStats.getInt("intelligence"));
+            stat.Life = (jsonStats.getInt("life"));
+            stat.LifeOnHit = (jsonStats.getInt("lifeOnHit"));
+            stat.LifePerKill = (jsonStats.getInt("lifePerKill"));
+            stat.LightningResist = (jsonStats.getInt("lightningResist"));
+            stat.LifeSteal = (jsonStats.getInt("lifeSteal"));
+            stat.MagicFind = ((int) (jsonStats.getDouble("magicFind") * 100.0));
+            stat.PhysicalResist = (jsonStats.getInt("physicalResist"));
+            stat.PoisonResist = (jsonStats.getInt("poisonResist"));
+            stat.PrimaryResource = (jsonStats.getInt("primaryResource"));
+            stat.SecondaryResource = (jsonStats.getInt("secondaryResource"));
+            stat.Strength = (jsonStats.getInt("strength"));
+            stat.Toughness = ((int) (jsonStats.getDouble("toughness")));
+            stat.Thorns = (jsonStats.getInt("thorns"));
+            stat.Vitality = (jsonStats.getInt("vitality"));
 
-            hero.setStat(stat);
+            JSONArray legendaries = new JSONObject(json).getJSONArray("legendaryPowers");
+            if (String.valueOf(legendaries.get(0)) != "null") {
+                stat.LegendaryPowerWeapon = ((new JSONObject(String.valueOf(legendaries.get(0)))).getString("name"));
+            }
+            if (String.valueOf(legendaries.get(1)) != "null") {
+                stat.LegendaryPowerArmor = ((new JSONObject(String.valueOf(legendaries.get(1)))).getString("name"));
+            }
+            if (String.valueOf(legendaries.get(2)) != "null") {
+                stat.LegendaryPowerJewelry = ((new JSONObject(String.valueOf(legendaries.get(2)))).getString("name"));
+            }
+
+            hero.Stat = stat;
             JSONObject jsonItems = new JSONObject(json).getJSONObject("items");
 
             int count = jsonItems.length();
@@ -96,29 +96,28 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
                 JSONObject jsonItem = jsonItems.getJSONObject(itemName);
 
                 Item item = new Item();
-                item.setId(jsonItem.getString("id"));
-                item.setName(jsonItem.getString("name"));
-                item.setIcon(jsonItem.getString("icon"));
-                item.setDisplayColor(jsonItem.getString("displayColor"));
-                item.setTooltipParams(jsonItem.getString("tooltipParams"));
-                Item tmpItem = D3API.getGemsInformation(item.getTooltipParams());
-                item.setGems(tmpItem.getGems());
-                item.setSocketCount(tmpItem.getSocketCount());
+                item.ID = jsonItem.getString("id");
+                item.Name = jsonItem.getString("name");
+                item.Icon = jsonItem.getString("icon");
+                item.DisplayColor = jsonItem.getString("displayColor");
+                item.TooltipParams = jsonItem.getString("tooltipParams");
+                Item tmpItem = D3API.getGemsInformation(item.TooltipParams);
+                item.GemList = tmpItem.GemList;
+                item.SocketCount = tmpItem.SocketCount;
 
                 items.put(itemName, item);
-                D3API.DownloadBitmap(item.getIconUrl(),item.getIcon());
-                for(int j=0;j<item.getGems().size();j++) {
-                    String icon = item.getGems().get(j);
-                    D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/"+icon+".png",icon);
+                D3API.DownloadBitmap(item.getIconUrl(), item.Icon);
+                for (int j = 0; j < item.GemList.size(); j++) {
+                    String icon = item.GemList.get(j);
+                    D3API.DownloadBitmap("http://content.battlenet.com.cn/d3/icons-zh-cn/items/large/" + icon + ".png", icon);
                 }
             }
 
-            hero.setItems(items);
-            hero.setName((new JSONObject(json)).getString("name"));
+            hero.ItemList = items;
+            hero.Name = (new JSONObject(json)).getString("name");
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+
+        } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();

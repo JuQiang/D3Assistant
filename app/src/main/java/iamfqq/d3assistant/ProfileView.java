@@ -26,15 +26,19 @@ public class ProfileView extends View {
     private Paint penName;
     private Paint penKills;
     private Paint penLevel;
+    private int viewWidth, viewHeight;
 
     public String getHeroID(){
-        return String.valueOf(this.heroProfileSimple.getId());
+        return String.valueOf(this.heroProfileSimple.ID);
     }
     public ProfileView(Context context,HeroProfileSimple heroProfileSimple) {
         super(context);
         this.heroProfileSimple = heroProfileSimple;
 
         headBackgroundBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.headback);
+        this.viewWidth = (int)(headBackgroundBitmap.getWidth()*0.8);
+        this.viewHeight = (int)(headBackgroundBitmap.getHeight()*0.8);
+
         heads.put("barbarian_0", BitmapFactory.decodeResource(getResources(),R.drawable.barbarian_0));
         heads.put("barbarian_1", BitmapFactory.decodeResource(getResources(),R.drawable.barbarian_1));
         heads.put("crusader_0", BitmapFactory.decodeResource(getResources(),R.drawable.crusader_0));
@@ -81,17 +85,17 @@ public class ProfileView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-        setMeasuredDimension((int)(headBackgroundBitmap.getWidth()*0.8),(int)(headBackgroundBitmap.getHeight()*0.8));
+        setMeasuredDimension(this.viewWidth+48,this.viewHeight+48);
     }
     @Override
     protected void onDraw(Canvas canvas) {
         // canvas 即为白纸
         canvas.drawBitmap(headBackgroundBitmap,
                 new Rect(0,0,headBackgroundBitmap.getWidth(),headBackgroundBitmap.getHeight()),
-                new Rect(0,0,(int)(headBackgroundBitmap.getWidth()*0.8),(int)(headBackgroundBitmap.getHeight()*0.8)),
+                new Rect(0,0,this.viewWidth+0,this.viewHeight+0),
                 null);
         Bitmap bmp = heads.get(
-                (this.heroProfileSimple.get_class() +"_"+ this.heroProfileSimple.getGender()).replace("-", "_")
+                (this.heroProfileSimple.Class +"_"+ this.heroProfileSimple.Gender).replace("-", "_")
         );
         canvas.drawBitmap(
                 bmp,
@@ -106,10 +110,10 @@ public class ProfileView extends View {
         int baseline = (nameRect.bottom + nameRect.top - fontMetrics.bottom - fontMetrics.top) / 2;
         // 下面这行是实现水平居中，drawText对应改为传入targetRect.centerX()
         penName.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(this.heroProfileSimple.getName(), nameRect.centerX(), baseline, penName);
+        canvas.drawText(this.heroProfileSimple.Name, nameRect.centerX(), baseline, penName);
 
-        canvas.drawText("消灭精英："+this.heroProfileSimple.getKillElites(),64,464,penKills);
-        int level = this.heroProfileSimple.getLevel();
+        canvas.drawText("消灭精英："+this.heroProfileSimple.KillElites,64,464,penKills);
+        int level = this.heroProfileSimple.Level;
         if(level<10) {
             canvas.drawText(Integer.toString(level), 410, 464, penLevel);
         }
@@ -118,7 +122,7 @@ public class ProfileView extends View {
         }
 
         Bitmap seasonPng = BitmapFactory.decodeResource(getResources(),R.drawable.season);
-        if(Boolean.toString(this.heroProfileSimple.isSeasonal())=="true") {
+        if(this.heroProfileSimple.Seasonal==true) {
             canvas.drawBitmap(seasonPng, 400, 360, null);
         }
         //super.onDraw(canvas);

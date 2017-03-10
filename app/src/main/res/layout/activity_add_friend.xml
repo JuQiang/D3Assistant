@@ -14,7 +14,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/addfriendtoolbar"
@@ -23,101 +23,33 @@
         android:paddingBottom="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:paddingTop="8dp"
+        android:paddingTop="8dp">
 
-        >
-
-        <TableLayout
+        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
+            android:checked="true"
+            android:gravity="left"
+            android:text="国服（网易）"
+            android:textSize="20dp" />
 
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="服务器"
-                    android:textColor="?android:attr/textColorSecondaryNoDisable"
-                    android:textSize="20dp"></TextView>
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:gravity="right"
-                    android:text="国服（网易）"
-                    android:textSize="20dp" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="战网账号"
-                    android:textColor="?android:attr/textColorSecondaryNoDisable"
-                    android:textSize="20dp"></TextView>
-
-                <LinearLayout>
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="方枪枪"
-                        android:textSize="20dp"
-                        android:id="@+id/profileLeft"
-                         />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:text="#" />
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:text="5690"
-                        android:id="@+id/profileRight"
-                        />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="昵称"
-                    android:textColor="?android:attr/textColorSecondaryNoDisable"
-                    android:textSize="20dp"></TextView>
-
-                <EditText
-                    android:id="@+id/nickName"
-                    android:layout_width="wrap_content"
-                    android:gravity="left"
-                    android:hint="输入基友的昵称，方便以后查找"
-                    android:textColor="@android:color/background_light"
-                    android:textSize="20dp"></EditText>
-            </TableRow>
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
-                    android:layout_span="2"
-                    android:text=""
-                    android:textSize="20dp" />
-            </TableRow>
-
-    <Button android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="findAndSaveFriend"
-        android:text="查找并保存"
-        >
-
-    </Button>
-        </TableLayout>
-
-    </LinearLayout>
+        <EditText
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="战网账号，格式为：方枪枪#5690"
+            android:textSize="20dp" />
+        <EditText
+            android:id="@+id/nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="基友昵称"
+            android:textSize="20dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="findAndSaveFriend"
+            android:text="查找并保存">
+        </Button>
+    </TableLayout>
 </RelativeLayout>

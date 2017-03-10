@@ -46,6 +46,9 @@ public class D3API {
     final private static String packageName = "iamfqq.d3assistant";
     private static Context context;
 
+    public static int displayWidth;
+    public static int displayHeight;
+
     public static void setContext(Context con) {
         context = con;
     }
@@ -64,6 +67,7 @@ public class D3API {
     }
 
     public static String DownloadString(String urlString, boolean needCache, String cacheKey) {
+        WriteLog("!!!DownloadString!!!",urlString);
         HttpURLConnection urlConnection = null;
         String ret = "";
         String cachedFilename = GetHash(cacheKey) + ".string";
@@ -180,7 +184,7 @@ public class D3API {
         return ret;
     }
 
-    private static void WriteLog(String tag, String message) {
+    public static void WriteLog(String tag, String message) {
         Log.i(tag, message + "-----" + String.valueOf(System.currentTimeMillis()));
     }
 
@@ -221,11 +225,16 @@ public class D3API {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject itemJson = (JSONObject) jsonArray.opt(i);
-                item.getGems().add((new JSONObject(itemJson.getString("item"))).getString("icon"));
+                item.GemList.add((new JSONObject(itemJson.getString("item"))).getString("icon"));
             }
 
-            JSONObject sockets = (new JSONObject(jsonString)).getJSONObject("attributesRaw").getJSONObject("Sockets");
-            item.setSocketCount((sockets == null) ? 0 : Integer.parseInt(sockets.get("min").toString().replace(".0", "")));
+            JSONObject sockets = (new JSONObject(jsonString)).getJSONObject("attributesRaw");
+            if(sockets.has("Sockets")) {
+                item.SocketCount=(Integer.parseInt(sockets.getJSONObject("Sockets").get("min").toString().replace(".0", "")));
+            }
+            else{
+                item.SocketCount=(0);
+            }
         } catch (JSONException ex) {
             ex.printStackTrace();
         } catch (Exception ex) {
@@ -276,7 +285,7 @@ public class D3API {
                 boolean exist = false;
                 while ((line = br.readLine()) != null) {
                     String[] tmp = line.split(",");
-                    friendList.add(new Friend(tmp[0], tmp[1]));
+                    friendList.add(new Friend(tmp[0].toLowerCase(), tmp[1]));
                 }
                 fis.close();
                 br.close();
@@ -308,6 +317,8 @@ public class D3API {
 
                 String line = "";
                 boolean exist = false;
+                profileID=profileID.toLowerCase();
+
                 while ((line = br.readLine()) != null) {
                     if (line.startsWith(profileID + ",")) {
                         exist = true;
@@ -450,7 +461,7 @@ public class D3API {
     }
 
 
-    private static boolean fileExists(String filename) {
+    public static boolean fileExists(String filename) {
         String path = getDiskCacheDir(context, packageName);
 
         boolean ret = false;

@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
         D3API.setContext(this);
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        D3API.displayWidth = displayMetrics.widthPixels;
+        D3API.displayHeight = displayMetrics.heightPixels;
+
         ArrayList<Friend> friends = D3API.getMyFriends();
         GridView gridView = (GridView) findViewById(R.id.gvFriends);
         gridView.setAdapter(new FriendImageAdapter(context, friends));
@@ -82,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intentShowProfile);
                     }
                 });
-                pt.execute(battleTag);
+                pt.execute(battleTag,"true");
 
             }
         });
@@ -95,20 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_add:
                     intentAddFriend.putExtra("", "");
                     startActivity(intentAddFriend);
-
-                    break;
-                case R.id.action_showhero:
-
-                    HeroTask ht = new HeroTask(new TaskCompleted() {
-                        @Override
-                        public void OnTaskCompleted(Object result) {
-                            intentShowHero.putExtra("myHero", (Hero) result);
-                            startActivity(intentShowHero);
-                        }
-                    });
-                    //36760898
-                    ht.execute("方枪枪-5690", "36760898");//33575370
-
                     break;
             }
             return true;
@@ -122,47 +114,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onFriendSelected(View view) {
 
-    }
-
-    public void myTest(View view) {
-        D3API.addOrModifyFriend("abc", "def");
-
-                /*
-                DecimalFormat df = new DecimalFormat();
-                df.applyPattern("#,000");
-                ((TextView) findViewById(R.id.guildName)).setText(careerProfile.getGuildName());
-                ((TextView) findViewById(R.id.paragonLevel)).setText(df.format(careerProfile.getParagonLevel()));
-                ((TextView) findViewById(R.id.paragonLevelSeason)).setText(df.format(careerProfile.getParagonLevelSeason()));
-                ((TextView) findViewById(R.id.ElitesKills)).setText(df.format(careerProfile.getKillsElites()));
-                ((TextView) findViewById(R.id.MonstersKills)).setText(df.format(careerProfile.getKillsMonsters()));
-*/
-        //OwnerDraw的在这里！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-//                GridView gridView = (GridView) findViewById(R.id.gridview);
-//                gridView.setAdapter(new CareerImageAdapter(context, careerProfile));
-    }
-
-    /**
-     * 得到(图片/新闻)缓存存储地址 默认:sd卡指定位置: /sdcard/Android/data/<application
-     * package>/cache 如果不存在或不可使用 则是内存卡
-     */
-
-    public void myTest2(View view) {
-        try {
-            String filename = "myfriends.txt";
-            String path = D3API.getDiskCacheDir(this.context, "iamfqq.d3assistant");
-            File file = new File(path + "myfriends.txt");
-            file.delete();
-
-            FileOutputStream fos = new FileOutputStream(path + filename);
-            fos.write("方枪枪-5690,方枪枪\r\n".getBytes());
-
-            fos.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return;
-    }
 
 }

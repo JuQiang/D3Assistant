@@ -49,7 +49,7 @@ public class ShowHeroActivity extends AppCompatActivity {
         myHero = (Hero) intent.getSerializableExtra("myHero");
 
         Toolbar toolbar =(Toolbar) findViewById(R.id.showherotoolbar);
-        toolbar.setTitle(myHero.getName());
+        toolbar.setTitle(myHero.Name);
 
         setSupportActionBar(toolbar);
 
