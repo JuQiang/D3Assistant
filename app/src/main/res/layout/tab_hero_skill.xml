@@ -1,100 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff404040"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:skills="http://schemas.android.com/apk/res-auto"
+    >
 
     <TableLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+
+        >
 
         <TableRow>
-            <TextView android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="基本1"
-                android:layout_span="2"
-                />
-        </TableRow>
-        <TableRow>
 
-            <iamfqq.d3assistant.SkillView
+            <iamfqq.d3assistant.ActiveSkillView
                 android:id="@+id/skillL"
-                IconName="skilll"
+                skills:IndicatorIcon="@drawable/skilll"
+                skills:Border="@drawable/skillborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <iamfqq.d3assistant.SkillView
+            <iamfqq.d3assistant.ActiveSkillView
                 android:id="@+id/skillR"
-                IconName="skillr"
+                skills:IndicatorIcon="@drawable/skillr"
+                skills:Border="@drawable/skillborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
 
         <TableRow>
 
-            <iamfqq.d3assistant.SkillView
+            <iamfqq.d3assistant.ActiveSkillView
                 android:id="@+id/skill1"
-                IconName="skill1"
+                skills:IndicatorIcon="@drawable/skill1"
+                skills:Border="@drawable/skillborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <iamfqq.d3assistant.SkillView
+            <iamfqq.d3assistant.ActiveSkillView
                 android:id="@+id/skill2"
-                IconName="skill2"
+                skills:IndicatorIcon="@drawable/skill2"
+                skills:Border="@drawable/skillborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
 
         <TableRow>
-
-            <iamfqq.d3assistant.SkillView
+            <iamfqq.d3assistant.ActiveSkillView
                 android:id="@+id/skill3"
-                IconName="skill3"
+                skills:IndicatorIcon="@drawable/skill3"
+                skills:Border="@drawable/skillborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <iamfqq.d3assistant.SkillView
+            <iamfqq.d3assistant.ActiveSkillView
                 android:id="@+id/skill4"
-                IconName="skill4"
+                skills:IndicatorIcon="@drawable/skill4"
+                skills:Border="@drawable/skillborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
 
         <TableRow>
-            <TextView android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="基本2"
-                android:layout_span="2"
-                />
-        </TableRow>
-        <TableRow>
 
-            <iamfqq.d3assistant.SkillPassiveView
+            <iamfqq.d3assistant.PassiveSkillView
                 android:id="@+id/skillPassive1"
-                IconName="skill1"
+                skills:Border="@drawable/skillpassiveborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <iamfqq.d3assistant.SkillPassiveView
+            <iamfqq.d3assistant.PassiveSkillView
                 android:id="@+id/skillPassive2"
-                IconName="skill2"
+                skills:Border="@drawable/skillpassiveborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
 
         <TableRow>
 
-            <iamfqq.d3assistant.SkillPassiveView
+            <iamfqq.d3assistant.PassiveSkillView
                 android:id="@+id/skillPassive3"
-                IconName="skill3"
+                skills:Border="@drawable/skillpassiveborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <iamfqq.d3assistant.SkillPassiveView
+            <iamfqq.d3assistant.PassiveSkillView
                 android:id="@+id/skillPassive4"
-                IconName="skill4"
+                skills:Border="@drawable/skillpassiveborder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>

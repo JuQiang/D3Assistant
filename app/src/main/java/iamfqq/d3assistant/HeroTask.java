@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Handler;
@@ -116,6 +117,40 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
             hero.ItemList = items;
             hero.Name = (new JSONObject(json)).getString("name");
 
+            JSONArray jsonActiveSkills = new JSONObject(json).getJSONObject("skills").getJSONArray("active");
+
+            hero.ActiveSkillList = new ArrayList<Skill>();
+            for (int i = 0; i < jsonActiveSkills.length(); i++) {
+                JSONObject skill = jsonActiveSkills.getJSONObject(i);
+                Skill activeSkill = new Skill();
+
+                if(skill.length()>0) {
+                    activeSkill.Icon = skill.getJSONObject("skill").getString("icon");
+                    activeSkill.Name = skill.getJSONObject("skill").getString("name");
+                    activeSkill.Tooltip = skill.getJSONObject("skill").getString("tooltipUrl");
+                    if (skill.has("rune")) {
+                        activeSkill.RuneName = skill.getJSONObject("rune").getString("name");
+                        activeSkill.RuneTooltip = skill.getJSONObject("rune").getString("tooltipParams");
+                    }
+                }
+
+                hero.ActiveSkillList.add(activeSkill);
+            }
+
+            JSONArray jsonPassiveSkills = new JSONObject(json).getJSONObject("skills").getJSONArray("passive");
+            hero.PassiveSkillList = new ArrayList<Skill>();
+            for (int i = 0; i < jsonPassiveSkills.length(); i++) {
+                JSONObject skill = jsonPassiveSkills.getJSONObject(i);
+                Skill passiveSkill = new Skill();
+
+                if(skill.length()>0) {
+                    passiveSkill.Icon = skill.getJSONObject("skill").getString("icon");
+                    passiveSkill.Name = skill.getJSONObject("skill").getString("name");
+                    passiveSkill.Tooltip = skill.getJSONObject("skill").getString("tooltipUrl");
+                }
+
+                hero.PassiveSkillList.add(passiveSkill);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

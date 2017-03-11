@@ -22,7 +22,16 @@ public class ItemTask extends AsyncTask<String, Integer, String> {
 
         String url = "http://d3.blizzard.cn/action/profile/item?param=" + stringItemTooltip;
         String html = D3API.DownloadString(url, true, stringItemTooltip);
+        String start = "<div class=\"d3-tooltip-item-border";
+        String end = "<div class=\"tooltip-";
 
+        int pos = html.indexOf(start);
+        int pos2 = html.indexOf(end,pos+start.length());
+        if(pos>-1 && pos2>pos){
+String left = html.substring(0,pos-1);
+            String right = html.substring(pos2,html.length()-1);
+            html = left + right;
+        }
         return html;
     }
 

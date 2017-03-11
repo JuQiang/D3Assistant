@@ -23,4 +23,6 @@ public class Hero implements Serializable {
     public Stat Stat;
 
     public Map<String,Item> ItemList;
+    public ArrayList<Skill> ActiveSkillList;
+    public ArrayList<Skill> PassiveSkillList;
 }

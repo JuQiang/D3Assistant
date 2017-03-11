@@ -1,5 +1,6 @@
 package iamfqq.d3assistant;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class ShowItemTooltipActivity extends AppCompatActivity {
         intent = this.getIntent();
         String stringItemTooltip = intent.getStringExtra("stringItemTooltip");
 
+        final ProgressDialog proDialog = android.app.ProgressDialog.show(this, "奈非天！", "正在和哥布林沟通，请稍候……");
         ItemTask it = new ItemTask(new TaskCompleted() {
             @Override
             public void OnTaskCompleted(Object result) {
@@ -44,10 +46,13 @@ public class ShowItemTooltipActivity extends AppCompatActivity {
                 WebView browser = (WebView) findViewById(R.id.wvItemTooltip);
                 //http://blog.csdn.net/top_code/article/details/9163597
                 //browser.loadData(sb.toString(),"text/html","gb2312");
+                D3API.WriteLog("tooltip",sb.toString());
                 browser.loadDataWithBaseURL(null, sb.toString(), "text/html", "UTF-8", null);
+                proDialog.dismiss();
             }
         });
         it.execute(stringItemTooltip);
-
+//http://www.cnblogs.com/renqingping/archive/2012/10/16/MarginBorderPadding.html
+        //padding, margin区别
     }
 }
