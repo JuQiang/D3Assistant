@@ -1,6 +1,5 @@
 package iamfqq.d3assistant;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,17 +16,18 @@ public class HeroSkillFragment extends Fragment {
     {
         View ret = inflater.inflate(R.layout.tab_hero_skill, container, false);
 
-        ((ActiveSkillView)ret.findViewById(R.id.skill1)).Skill = this.hero.ActiveSkillList.get(0);
-        ((ActiveSkillView)ret.findViewById(R.id.skillR)).Skill = this.hero.ActiveSkillList.get(1);
-        ((ActiveSkillView)ret.findViewById(R.id.skill1)).Skill = this.hero.ActiveSkillList.get(2);
-        ((ActiveSkillView)ret.findViewById(R.id.skill2)).Skill = this.hero.ActiveSkillList.get(3);
-        ((ActiveSkillView)ret.findViewById(R.id.skill3)).Skill = this.hero.ActiveSkillList.get(4);
-        ((ActiveSkillView)ret.findViewById(R.id.skill4)).Skill = this.hero.ActiveSkillList.get(5);
+        String uriPrefix = "http://d3.blizzard.cn/action/profile/career/"+this.hero.BattleTag+"/"+String.valueOf(hero.ID)+"/";
+        ((SkillView)ret.findViewById(R.id.skillL)).SetSkill(uriPrefix,this.hero.ActiveSkillList.get(0));
+        ((SkillView)ret.findViewById(R.id.skillR)).SetSkill(uriPrefix, this.hero.ActiveSkillList.get(1));
+        ((SkillView)ret.findViewById(R.id.skill1)).SetSkill(uriPrefix, this.hero.ActiveSkillList.get(2));
+        ((SkillView)ret.findViewById(R.id.skill2)).SetSkill(uriPrefix,this.hero.ActiveSkillList.get(3));
+        ((SkillView)ret.findViewById(R.id.skill3)).SetSkill(uriPrefix,this.hero.ActiveSkillList.get(4));
+        ((SkillView)ret.findViewById(R.id.skill4)).SetSkill(uriPrefix, this.hero.ActiveSkillList.get(5));
 
-        ((PassiveSkillView)ret.findViewById(R.id.skillPassive1)).Skill = this.hero.PassiveSkillList.get(0);
-        ((PassiveSkillView)ret.findViewById(R.id.skillPassive2)).Skill = this.hero.PassiveSkillList.get(1);
-        ((PassiveSkillView)ret.findViewById(R.id.skillPassive3)).Skill = this.hero.PassiveSkillList.get(2);
-        ((PassiveSkillView)ret.findViewById(R.id.skillPassive4)).Skill = this.hero.PassiveSkillList.get(3);
+        ((SkillView)ret.findViewById(R.id.skillPassive1)).SetSkill(uriPrefix,this.hero.PassiveSkillList.get(0));
+        ((SkillView)ret.findViewById(R.id.skillPassive2)).SetSkill(uriPrefix,this.hero.PassiveSkillList.get(1));
+        ((SkillView)ret.findViewById(R.id.skillPassive3)).SetSkill(uriPrefix,this.hero.PassiveSkillList.get(2));
+        ((SkillView)ret.findViewById(R.id.skillPassive4)).SetSkill(uriPrefix,this.hero.PassiveSkillList.get(3));
 
         return ret;
     }

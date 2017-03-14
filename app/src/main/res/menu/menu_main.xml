@@ -9,10 +9,10 @@
         android:title="查找"
         android:orderInCategory="1100"
         app:showAsAction="ifRoom" />
-    <item android:id="@+id/action_test"
+    <item android:id="@+id/action_season"
 
-        android:title="测试"
-        android:orderInCategory="1300"
+        android:title="天梯"
+        android:orderInCategory="1400"
         app:showAsAction="ifRoom" />
 
 </menu>

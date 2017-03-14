@@ -8,7 +8,8 @@ import java.util.Map;
  * Created by JuQiang on 9/6/2016.
  */
 public class Hero implements Serializable {
-    public int Id;
+    public String BattleTag;
+    public int ID;
     public String Name;
     public String Class;
     public int Gender;

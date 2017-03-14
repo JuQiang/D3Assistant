@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_show_item_tooltip"
+    android:id="@+id/activity_show_skill_tooltip"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff000000"
-    tools:context="iamfqq.d3assistant.ShowItemTooltipActivity">
-
+    android:background="#ffffffff"
+    tools:context="iamfqq.d3assistant.ShowSkillTooltipActivity">
 
     <WebView
-        android:id="@+id/wvItemTooltip"
+        android:id="@+id/wvSkillTooltip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="-5dp"

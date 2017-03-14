@@ -40,7 +40,7 @@ public class ProfileTask extends AsyncTask<String, Integer, CareerProfile> {
         boolean cached = false;
         if (params[1] == "true") cached = true;
 
-        String urlString = "https://api.battlenet.com.cn/d3/profile/" + pid + "/?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4";
+        String urlString = "https://api.battlenet.com.cn/d3/profile/" + pid + "/?locale=zh_CN&apikey="+D3API.Key;
         String ret = D3API.DownloadString(urlString, cached, pid);
 
         try {

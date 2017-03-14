@@ -48,6 +48,8 @@ public class D3API {
 
     public static int displayWidth;
     public static int displayHeight;
+    final public static String Key = "p6zh6ysfdu862mep48mj75pvwuwt5vr7";
+    final public static String AccessToken = "c7gx9rtd3rjnbjuzqg8ew7js";
 
     public static void setContext(Context con) {
         context = con;
@@ -215,9 +217,9 @@ public class D3API {
         WriteLog("getItemJson begin", tooltipParams);
         Item item = new Item();
 
-        //https://api.battlenet.com.cn/d3/data/item/Co0BCPm0re0MEgcIBBXqNOh1HWYjBlAd6tWSPx3mFdsNHZinjsAdFkn0hx0HXp3TMItaONgBQABQElgEYLEDajAKDAgAEOvxnrCBgICAGBIgCI7P0eAGEgcIBBVsF6PBMItSOABAAFASWASQAQnYAWCAAUalAZinjsCtAZinjsC1ATZVXUS4AYaFtpcHwAERGNTTwd4OUAJYAKABkqK93g6gAdTTwd4O?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5
+        //https://api.battlenet.com.cn/d3/data/item/Co0BCPm0re0MEgcIBBXqNOh1HWYjBlAd6tWSPx3mFdsNHZinjsAdFkn0hx0HXp3TMItaONgBQABQElgEYLEDajAKDAgAEOvxnrCBgICAGBIgCI7P0eAGEgcIBBVsF6PBMItSOABAAFASWASQAQnYAWCAAUalAZinjsCtAZinjsC1ATZVXUS4AYaFtpcHwAERGNTTwd4OUAJYAKABkqK93g6gAdTTwd4O?locale=zh_CN&apikey=YourKey
         try {
-            String urlString = "https://api.battlenet.com.cn/d3/data/" + tooltipParams + "?locale=zh_CN&apikey=heef46sr5ue44xfdgwr4wrycckgawhu5";
+            String urlString = "https://api.battlenet.com.cn/d3/data/" + tooltipParams + "?locale=zh_CN&apikey="+Key;
             String jsonString = DownloadString(urlString, true, tooltipParams.replace("item/", ""));
 
             if (jsonString.length() < 1) return item;

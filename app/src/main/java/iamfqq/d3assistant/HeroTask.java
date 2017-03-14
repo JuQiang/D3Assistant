@@ -1,8 +1,6 @@
 package iamfqq.d3assistant;
 
 import android.os.AsyncTask;
-import android.os.Message;
-import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +10,6 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Handler;
 
 /**
  * Created by JuQiang on 2/25/2017.
@@ -35,8 +32,11 @@ public class HeroTask extends AsyncTask<String, Integer, Hero> {
         boolean cached = false;
         if (params[2] == "true") cached = true;
 
-        String urlString = "https://api.battlenet.com.cn/d3/profile/" + pid + "/hero/" + hid + "?locale=zh_CN&apikey=8prs9cf3txhyg92844p7ny8kejesrcz4";
+        String urlString = "https://api.battlenet.com.cn/d3/profile/" + pid + "/hero/" + hid + "?locale=zh_CN&apikey="+D3API.Key;
         String json = D3API.DownloadString(urlString, cached, hid);
+
+        hero.BattleTag = pid;
+        hero.ID = Integer.decode(hid);
 
         try {
             JSONObject jsonStats = new JSONObject(json).getJSONObject("stats");
