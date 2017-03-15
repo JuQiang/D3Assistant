@@ -2,13 +2,15 @@ package iamfqq.d3assistant;
 
 import android.os.AsyncTask;
 
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 
 /**
  * Created by JuQiang on 3/13/2017.
  */
 
-public class LeaderBoardTask  extends AsyncTask<String, Integer, String> {
+public class LeaderBoardTask  extends AsyncTask<String, Integer, ArrayList<LeaderBoard>> {
     private TaskCompleted listner;
 
     public LeaderBoardTask(TaskCompleted listner) {
@@ -16,20 +18,22 @@ public class LeaderBoardTask  extends AsyncTask<String, Integer, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected ArrayList<LeaderBoard> doInBackground(String... params) {
         HttpURLConnection urlConnection = null;
-        String stringItemTooltip = params[0];
+        ArrayList<LeaderBoard> list = new ArrayList<LeaderBoard>();
 
-        String url = "https://api.battlenet.com.cn/data/d3/season/9/leaderboard/rift-barbarian?namespace=2-1-CN&access_token=c7gx9rtd3rjnbjuzqg8ew7js";
-        String html = D3API.DownloadString(url, true, url);
+        String url = params[0];
+        boolean isCached = params[1].toLowerCase()=="true";
 
-        return html;
+        String json = D3API.DownloadString(url, isCached, url);
+
+        return list;
     }
 
     @Override
-    protected void onPostExecute(String someString) {
+    protected void onPostExecute(ArrayList<LeaderBoard> list) {
         if (null != listner) {
-            listner.OnTaskCompleted(someString);
+            listner.OnTaskCompleted(list);
         }
     }
 }

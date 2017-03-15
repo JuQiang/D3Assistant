@@ -51,6 +51,17 @@ public class D3API {
     final public static String Key = "p6zh6ysfdu862mep48mj75pvwuwt5vr7";
     final public static String AccessToken = "c7gx9rtd3rjnbjuzqg8ew7js";
 
+    /*Region	Old URL	New URL
+    US	http://us.battle.net/api/	https://us.api.battle.net/
+    EU	http://eu.battle.net/api/	https://eu.api.battle.net/
+    KR	http://kr.battle.net/api/	https://kr.api.battle.net/
+    TW	http://tw.battle.net/api/	https://tw.api.battle.net/
+    CN	http://www.battlenet.com.cn/api/	https://api.battlenet.com.cn/
+    SEA	http://sea.battle.net/api/	https://sea.api.battle.net/
+    */
+    /*Region	Authorize URI	Token URI
+    US EU KR TW	https://<region>.battle.net/oauth/authorize	https://<region>.battle.net/oauth/token
+    CN	https://www.battlenet.com.cn/oauth/authorize	https://www.battlenet.com.cn/oauth/token*/
     public static void setContext(Context con) {
         context = con;
     }

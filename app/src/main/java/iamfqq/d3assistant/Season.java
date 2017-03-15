@@ -1,12 +1,11 @@
 package iamfqq.d3assistant;
 
 /**
- * Created by JuQiang on 3/13/2017.
+ * Created by JUQIANG-PC on 2017/3/15.
  */
 
 public class Season {
-    public int CurrentSeason;
-    public int ServiceCurrentSeason;
-    public String ServiceSeasonState;
+    public String Type;
+    public int Current;
     public String LastUpdateTime;
 }
