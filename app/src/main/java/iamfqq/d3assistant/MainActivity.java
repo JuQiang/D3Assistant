@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.context = this;
         intentAddFriend = new Intent(this, AddFriendActivity.class);
-        intentAddFriendFromSeason = new Intent(this,AddFriendFromLeaderBoardActivity.class);
+        intentAddFriendFromSeason = new Intent(this,SearchFriendFromLeaderBoardActivity.class);
         intentShowProfile = new Intent(this, ShowProfileActivity.class);
         intentShowHero = new Intent(this, ShowHeroActivity.class);
 

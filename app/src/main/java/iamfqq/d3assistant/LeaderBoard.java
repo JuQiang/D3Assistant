@@ -1,10 +1,12 @@
 package iamfqq.d3assistant;
 
+import java.io.Serializable;
+
 /**
  * Created by JuQiang on 3/13/2017.
  */
 
-public class LeaderBoard {
+public class LeaderBoard  implements Serializable {
     public int Order;
     public String Gender;
     public int RiftLevel;

@@ -27,6 +27,12 @@ public class LeaderBoardTask  extends AsyncTask<String, Integer, ArrayList<Leade
 
         String json = D3API.DownloadString(url, isCached, url);
 
+        for(int i=0;i<30;i++) {
+            LeaderBoard lb = new LeaderBoard();
+            lb.BattleTag = "iamfqq-" + String.valueOf(i);
+            list.add(lb);
+        }
+
         return list;
     }
 
