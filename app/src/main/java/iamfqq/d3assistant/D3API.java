@@ -36,6 +36,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,11 +46,12 @@ import java.util.List;
 public class D3API {
     final private static String packageName = "iamfqq.d3assistant";
     private static Context context;
+    private static HashMap<String, Bitmap> classPictureCache = new HashMap<String, Bitmap>();
 
     public static int displayWidth;
     public static int displayHeight;
     final public static String Key = "p6zh6ysfdu862mep48mj75pvwuwt5vr7";
-    final public static String AccessToken = "c7gx9rtd3rjnbjuzqg8ew7js";
+    final public static String AccessToken = "y5bf743uekxgc66fs3645afa";
 
     /*Region	Old URL	New URL
     US	http://us.battle.net/api/	https://us.api.battle.net/
@@ -62,6 +64,39 @@ public class D3API {
     /*Region	Authorize URI	Token URI
     US EU KR TW	https://<region>.battle.net/oauth/authorize	https://<region>.battle.net/oauth/token
     CN	https://www.battlenet.com.cn/oauth/authorize	https://www.battlenet.com.cn/oauth/token*/
+
+    public static Bitmap GetBitmapByClass(String className) {
+        if (classPictureCache.size() < 1) {
+            classPictureCache.put("barbarian_male", BitmapFactory.decodeResource(context.getResources(), R.drawable.barbarian_0));
+            classPictureCache.put("barbarian_female", BitmapFactory.decodeResource(context.getResources(), R.drawable.barbarian_1));
+            classPictureCache.put("crusader_male", BitmapFactory.decodeResource(context.getResources(), R.drawable.crusader_0));
+            classPictureCache.put("crusader_female", BitmapFactory.decodeResource(context.getResources(), R.drawable.crusader_1));
+            classPictureCache.put("demonhunter_male", BitmapFactory.decodeResource(context.getResources(), R.drawable.demon_hunter_0));
+            classPictureCache.put("demonhunter_female", BitmapFactory.decodeResource(context.getResources(), R.drawable.demon_hunter_1));
+            classPictureCache.put("monk_male", BitmapFactory.decodeResource(context.getResources(), R.drawable.monk_0));
+            classPictureCache.put("monk_female", BitmapFactory.decodeResource(context.getResources(), R.drawable.monk_1));
+            classPictureCache.put("witchdoctor_male", BitmapFactory.decodeResource(context.getResources(), R.drawable.witch_doctor_0));
+            classPictureCache.put("witchdoctor_female", BitmapFactory.decodeResource(context.getResources(), R.drawable.wizard_1));
+            classPictureCache.put("wizard_male", BitmapFactory.decodeResource(context.getResources(), R.drawable.wizard_0));
+            classPictureCache.put("wizard_female", BitmapFactory.decodeResource(context.getResources(), R.drawable.wizard_1));
+        }
+
+        if(className.contains("barbarian_male"))return classPictureCache.get("barbarian_male");
+        if(className.contains("barbarian_female"))return classPictureCache.get("barbarian_female");
+        if(className.contains("crusader_male"))return classPictureCache.get("crusader_male");
+        if(className.contains("crusader_female"))return classPictureCache.get("crusader_female");
+        if(className.contains("demonhunter_male"))return classPictureCache.get("demonhunter_male");
+        if(className.contains("demonhunter_female"))return classPictureCache.get("demonhunter_female");
+        if(className.contains("monk_male"))return classPictureCache.get("monk_male");
+        if(className.contains("monk_female"))return classPictureCache.get("monk_female");
+        if(className.contains("witchdoctor_male"))return classPictureCache.get("witchdoctor_male");
+        if(className.contains("witchdoctor_female"))return classPictureCache.get("witchdoctor_female");
+        if(className.contains("wizard_male"))return classPictureCache.get("wizard_male");
+        if(className.contains("wizard_female"))return classPictureCache.get("wizard_female");
+
+        return null;
+    }
+
     public static void setContext(Context con) {
         context = con;
     }
@@ -80,7 +115,7 @@ public class D3API {
     }
 
     public static String DownloadString(String urlString, boolean needCache, String cacheKey) {
-        WriteLog("!!!DownloadString!!!",urlString);
+        WriteLog("!!!DownloadString!!!", urlString);
         HttpURLConnection urlConnection = null;
         String ret = "";
         String cachedFilename = GetHash(cacheKey) + ".string";
@@ -127,9 +162,10 @@ public class D3API {
         return ret;
     }
 
-    public static void ShowToast(String message){
+    public static void ShowToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
     public static Bitmap DownloadBitmap(String urlString, String cacheKey) {
         boolean needCache = true;
 
@@ -230,7 +266,7 @@ public class D3API {
 
         //https://api.battlenet.com.cn/d3/data/item/Co0BCPm0re0MEgcIBBXqNOh1HWYjBlAd6tWSPx3mFdsNHZinjsAdFkn0hx0HXp3TMItaONgBQABQElgEYLEDajAKDAgAEOvxnrCBgICAGBIgCI7P0eAGEgcIBBVsF6PBMItSOABAAFASWASQAQnYAWCAAUalAZinjsCtAZinjsC1ATZVXUS4AYaFtpcHwAERGNTTwd4OUAJYAKABkqK93g6gAdTTwd4O?locale=zh_CN&apikey=YourKey
         try {
-            String urlString = "https://api.battlenet.com.cn/d3/data/" + tooltipParams + "?locale=zh_CN&apikey="+Key;
+            String urlString = "https://api.battlenet.com.cn/d3/data/" + tooltipParams + "?locale=zh_CN&apikey=" + Key;
             String jsonString = DownloadString(urlString, true, tooltipParams.replace("item/", ""));
 
             if (jsonString.length() < 1) return item;
@@ -242,11 +278,10 @@ public class D3API {
             }
 
             JSONObject sockets = (new JSONObject(jsonString)).getJSONObject("attributesRaw");
-            if(sockets.has("Sockets")) {
-                item.SocketCount=(Integer.parseInt(sockets.getJSONObject("Sockets").get("min").toString().replace(".0", "")));
-            }
-            else{
-                item.SocketCount=(0);
+            if (sockets.has("Sockets")) {
+                item.SocketCount = (Integer.parseInt(sockets.getJSONObject("Sockets").get("min").toString().replace(".0", "")));
+            } else {
+                item.SocketCount = (0);
             }
         } catch (JSONException ex) {
             ex.printStackTrace();
@@ -330,7 +365,7 @@ public class D3API {
 
                 String line = "";
                 boolean exist = false;
-                profileID=profileID.toLowerCase();
+                profileID = profileID.toLowerCase();
 
                 while ((line = br.readLine()) != null) {
                     if (line.startsWith(profileID + ",")) {

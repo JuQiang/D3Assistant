@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout01"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
->
+    android:background="#ff000000"
+    android:orientation="horizontal">
 
     <CheckBox
-        android:layout_width="wrap_content"
+        android:id="@+id/lbOrder"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:id="@+id/cbCheckBox"
-        android:text="你好"
-        android:focusable="false"
         android:clickable="false"
+        android:focusable="false"
         android:focusableInTouchMode="false"
-        />
+        android:textAlignment="center"
+        android:text="你好" />
+
+    <TextView
+        android:textAlignment="center"
+        android:id="@+id/lbName"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"></TextView>
+
     <ImageView
-        android:id="@+id/ItemImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/cbCheckBox"
-        android:focusable="false"
+        android:textAlignment="center"
+        android:id="@+id/lbClass"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:clickable="false"
-        android:focusableInTouchMode="false"
-        ></ImageView>
+        android:focusable="false"
+        android:paddingTop="8dp"
+        android:focusableInTouchMode="false"></ImageView>
 
     <TextView
-        android:id="@+id/ItemTitle"
-        android:layout_width="fill_parent"
+        android:textAlignment="center"
+        android:id="@+id/lbRiftLevel"
+        android:layout_width="82dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ItemImage"
-        android:text="TextView01"
-        android:textSize="30dip"
-        android:focusable="false"
         android:clickable="false"
-        android:focusableInTouchMode="false"
-        ></TextView>
+        android:focusable="false"
+        android:focusableInTouchMode="false"></TextView>
 
     <TextView
-        android:id="@+id/ItemText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ItemTitle"
-        android:layout_toRightOf="@+id/ItemImage"
-        android:text="TextView02"
-        android:focusable="false"
-        android:clickable="false"
-        android:focusableInTouchMode="false"
-        ></TextView>
-</RelativeLayout>
+        android:textAlignment="center"
+            android:id="@+id/lbRiftTime"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"></TextView>
+</LinearLayout>

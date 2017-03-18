@@ -27,10 +27,11 @@ public class SeasonTask extends AsyncTask<String, Integer, Season> {
         } else {
             url = "https://api.battlenet.com.cn/data/d3/era/?access_token=" + D3API.AccessToken;
         }
-        String json = D3API.DownloadString(url, isCached, url);
+        //oauth搞不定，暂时写死了
+        //String json = D3API.DownloadString(url, isCached, url);
 
         Season ret = new Season();
-        try {
+/*        try {
             JSONObject jsonseason = new JSONObject(json);
             if(isSeason) {
                 ret.Current = Integer.decode(String.valueOf(jsonseason.get("current_season")));
@@ -43,7 +44,9 @@ public class SeasonTask extends AsyncTask<String, Integer, Season> {
             ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
+        ret.Current=(isSeason==true)?9:5;
+        ret.LastUpdateTime="";
         return ret;
     }
 

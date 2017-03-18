@@ -1,12 +1,14 @@
 package iamfqq.d3assistant;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,9 +50,15 @@ public class BoardAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.customized_board_item, null);
-            viewHolder.layout = (RelativeLayout) convertView.findViewById(R.id.RelativeLayout01);
-            viewHolder.textView = (TextView) convertView.findViewById(R.id.ItemText);
-            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.cbCheckBox);
+
+            viewHolder.layout = (LinearLayout) convertView.findViewById(R.id.RelativeLayout01);
+            viewHolder.bmpClass = (ImageView) convertView.findViewById(R.id.lbClass);
+            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.lbOrder);
+            viewHolder.tvName = (TextView) convertView.findViewById(R.id.lbName);
+            viewHolder.tvRiftLevel = (TextView) convertView.findViewById(R.id.lbRiftLevel);
+            viewHolder.tvRiftTime = (TextView) convertView.findViewById(R.id.lbRiftTime);
+            //viewHolder.tvCompletedTime = (TextView) convertView.findViewById(R.id.lbCompletedTime);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -67,7 +75,17 @@ public class BoardAdapter extends BaseAdapter {
             }
         });
 
-        viewHolder.textView.setText(list.get(position).board.BattleTag);
+        LeaderBoard lb = list.get(position).board;
+
+
+        //image missing
+        viewHolder.tvName.setText(lb.Name);
+        viewHolder.tvRiftLevel.setText(String.valueOf(lb.RiftLevel));
+        viewHolder.tvRiftTime.setText(lb.RiftTime);
+        viewHolder.bmpClass.setImageBitmap(D3API.GetBitmapByClass(lb.ClassPictureUrl));
+        //viewHolder.tvCompletedTime.setText(lb.CompletedTime);
+
+        viewHolder.checkBox.setText(String.valueOf(lb.Order));
         if (list.get(position).type == A.TYPE_CHECKED) {
             viewHolder.checkBox.setChecked(true);
         } else {

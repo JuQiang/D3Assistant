@@ -1,5 +1,7 @@
 package iamfqq.d3assistant;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -8,12 +10,13 @@ import java.io.Serializable;
 
 public class LeaderBoard  implements Serializable {
     public int Order;
+    public String Name;
+    public String BattleTag;
+    public Bitmap ClassPicture;
+    public String ClassPictureUrl;
+    public String HeroClass;
     public String Gender;
     public int RiftLevel;
-    public String HeroClanTag;
-    public String BattleTag;
-    public String HeroClass;
-    public int HeroId;
     public String RiftTime;
     public String CompletedTime;
 }

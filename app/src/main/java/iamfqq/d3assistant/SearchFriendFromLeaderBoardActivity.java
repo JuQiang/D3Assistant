@@ -29,24 +29,9 @@ public class SearchFriendFromLeaderBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_friend_from_leaderboard);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.addfriendfromleaderboardtoolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.searchfriendfromleaderboardtoolbar);
         toolbar.setTitle("添加天梯榜上的神基友");
         setSupportActionBar(toolbar);
-        //注意：setNavigationIcon(),setOnMenuItemClickListener()
-        // 需要放在 setSupportActionBar之后才会生效
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.action_refresh:
-                        InitLayout(false);
-                        break;
-                    default:
-                        Log.i("abc", "!!!!!!!!!!!!!!!default!!!!!!!!!!!!!!!");
-                }
-                return true;
-            }
-        });
 
 
         ActionBar ab = getSupportActionBar();
@@ -58,12 +43,6 @@ public class SearchFriendFromLeaderBoardActivity extends AppCompatActivity {
         //InitListview();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // 為了讓 Toolbar 的 Menu 有作用，這邊的程式不可以拿掉
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return true;
-    }
 
     private String GetUrl(String model, String _class, String board) {
         String s1 = "", s2 = "", s3 = "";
@@ -72,7 +51,8 @@ public class SearchFriendFromLeaderBoardActivity extends AppCompatActivity {
         if (model == "普通模式" || model == "专家级模式") s1 = "era";
         if (model == "赛季" || model == "专家级赛季") s1 = "season";
 
-        if (model.contains("专家")) s2 = "-hardcore";
+        if (model.contains("专家")) s2 = "hardcore";
+        else s2 = "normal";//s2 = "-hardcore";
 
         if (_class.contains("野蛮人")) s3 = "barbarian";
         if (_class.contains("圣教军大秘境")) s3 = "crusader";
@@ -84,7 +64,9 @@ public class SearchFriendFromLeaderBoardActivity extends AppCompatActivity {
         if (_class.contains("三人模式大秘境")) s3 = "team-3";
         if (_class.contains("四人模式大秘境")) s3 = "team-4";
 
-        url = "https://api.battlenet.com.cn/data/d3/"
+        //oauth搞不定
+        //先从官网上抓
+        /*url = "https://api.battlenet.com.cn/data/d3/"
                 + s1
                 + "/"
                 + board.replace("第", "").replace("季", "")
@@ -93,7 +75,17 @@ public class SearchFriendFromLeaderBoardActivity extends AppCompatActivity {
                 + "-"
                 + s3
                 + "?namespace=2-1-CN&access_token="
-                + D3API.AccessToken;
+                + D3API.AccessToken;*/
+        http://d3.blizzard.cn/action/ranking/leaderboard?season=season&phase=9&classes=barbarian&type=normal&p=1
+        url = "http://d3.blizzard.cn/action/ranking/leaderboard?season="
+                + s1
+                + "&phase="
+                + board.replace("第", "").replace("季", "")
+                + "&classes="
+                + s3
+                + "&type="
+                + s2
+                + "&p=1";
 
         return url;
     }
@@ -168,12 +160,12 @@ public class SearchFriendFromLeaderBoardActivity extends AppCompatActivity {
         final Spinner spinnerClass = (Spinner) findViewById(R.id.spinnerClass);
         final Spinner spinnerSeason = (Spinner) findViewById(R.id.spinnerBoard);
 
-        String model = ((TextView) (spinnerModel.getSelectedView().findViewById(R.id.textView2))).getText().toString();
-        String _class = ((TextView) (spinnerClass.getSelectedView().findViewById(R.id.textView2))).getText().toString();
-        String board = ((TextView) (spinnerSeason.getSelectedView().findViewById(R.id.textView2))).getText().toString();
+        final String model = ((TextView) (spinnerModel.getSelectedView().findViewById(R.id.textView2))).getText().toString();
+        final String _class = ((TextView) (spinnerClass.getSelectedView().findViewById(R.id.textView2))).getText().toString();
+        final String season = ((TextView) (spinnerSeason.getSelectedView().findViewById(R.id.textView2))).getText().toString();
 
         EditText test = (EditText) findViewById(R.id.etTest);
-        String url = GetUrl(model, _class, board);
+        String url = GetUrl(model, _class, season);
         test.setText(url);
         final ProgressDialog proDialog = android.app.ProgressDialog.show(this, "奈非天！", "正在和天梯榜沟通，请稍候……");
 
@@ -182,12 +174,15 @@ public class SearchFriendFromLeaderBoardActivity extends AppCompatActivity {
             public void OnTaskCompleted(Object result) {
                 ArrayList<LeaderBoard> list = (ArrayList<LeaderBoard>) result;
                 ArrayList<A> list2 = new ArrayList<A>();
-                for(int i=0;i<list.size();i++){
-                    list2.add(new A(list.get(i),A.TYPE_NOCHECKED));
+                for (int i = 0; i < list.size(); i++) {
+                    list2.add(new A(list.get(i), A.TYPE_NOCHECKED));
                 }
                 proDialog.dismiss();
 
                 intent.putExtra("LeaderBoard", list2);
+                intent.putExtra("model",model);
+                intent.putExtra("class",_class);
+                intent.putExtra("season",season);
                 startActivity(intent);
             }
         });

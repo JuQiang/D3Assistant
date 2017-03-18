@@ -9,7 +9,7 @@
     tools:context="iamfqq.d3assistant.SearchFriendFromLeaderBoardActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/addfriendfromleaderboardtoolbar"
+        android:id="@+id/searchfriendfromleaderboardtoolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#ff000000">
@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/addfriendfromleaderboardtoolbar"
+        android:layout_below="@id/searchfriendfromleaderboardtoolbar"
         android:orientation="vertical"
         android:paddingBottom="8dp"
         android:paddingLeft="8dp"
@@ -52,7 +52,7 @@
                 android:onClick="findAndSaveLeaderBoardFriend"
                 android:paddingLeft="8dp"
                 android:paddingTop="8dp"
-                android:text="查找并保存" />
+                android:text="查找" />
 
             <EditText
                 android:id="@+id/etTest"
