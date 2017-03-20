@@ -14,7 +14,9 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddFriendFromLeaderBoardActivity extends AppCompatActivity {
     ArrayList<A> list;
@@ -31,24 +33,24 @@ public class AddFriendFromLeaderBoardActivity extends AppCompatActivity {
         String _class = intent.getStringExtra("class");
         String season = intent.getStringExtra("season");
 
-        lvBoard= (ListView)findViewById(R.id.lvBoard);
+        lvBoard = (ListView) findViewById(R.id.lvBoard);
         lvBoard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                list.get(i).type = (list.get(i).type==0)?1:0;
-                CheckBox cb = (CheckBox)view.findViewById(R.id.lbOrder);
+                list.get(i).type = (list.get(i).type == 0) ? 1 : 0;
+                CheckBox cb = (CheckBox) view.findViewById(R.id.lbOrder);
                 cb.setChecked(!cb.isChecked());
                 int a = i;
             }
         });
         Context context = this;
-        boardAdapter = new BoardAdapter(context,list);
+        boardAdapter = new BoardAdapter(context, list);
         lvBoard.setAdapter(boardAdapter);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.addfriendfromleaderboardtoolbar);
         toolbar.setTitle("神一样的奈非天");
-        toolbar.setSubtitle(model+"-"+_class+"-"+season);
+        toolbar.setSubtitle(model + "-" + _class + "-" + season);
         setSupportActionBar(toolbar);
         //注意：setNavigationIcon(),setOnMenuItemClickListener()
         // 需要放在 setSupportActionBar之后才会生效
@@ -76,5 +78,38 @@ public class AddFriendFromLeaderBoardActivity extends AppCompatActivity {
         // 為了讓 Toolbar 的 Menu 有作用，這邊的程式不可以拿掉
         getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
+    }
+
+    public void saveLeaderBoardFriend(View view) {
+        ListView lv = (ListView) findViewById(R.id.lvBoard);
+        List<A> list = ((BoardAdapter) lv.getAdapter()).getBoardList();
+        final StringBuilder sb = new StringBuilder();
+
+        final Intent intentMain = new Intent(this, MainActivity.class);
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).type == A.TYPE_CHECKED) {
+                sb.append(list.get(i).board.BattleTag).append(",");
+            }
+        }
+
+        ProfileTask2 pt2 = new ProfileTask2(new TaskCompleted() {
+            @Override
+            public void OnTaskCompleted(Object result) {
+                String[] pidList = sb.toString().split(",");
+                for (int i = 0; i < pidList.length; i++) {
+                    int pos = pidList[i].indexOf("#");
+                    D3API.addOrModifyFriend(pidList[i].replace("#","-"), pidList[i].substring(0, pos));
+                }
+                D3API.ShowToast("已成功邀请【"+String.valueOf(pidList.length)+"】位大神加入你的狗熊榜！");
+                startActivity(intentMain);
+            }
+        }
+        );
+        pt2.execute(sb.toString(), "true");
+
+
+
+
     }
 }

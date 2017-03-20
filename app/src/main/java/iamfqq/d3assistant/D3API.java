@@ -333,7 +333,7 @@ public class D3API {
                 boolean exist = false;
                 while ((line = br.readLine()) != null) {
                     String[] tmp = line.split(",");
-                    friendList.add(new Friend(tmp[0].toLowerCase(), tmp[1]));
+                    friendList.add(new Friend(tmp[0].toLowerCase().replace("#","-"), tmp[1]));
                 }
                 fis.close();
                 br.close();

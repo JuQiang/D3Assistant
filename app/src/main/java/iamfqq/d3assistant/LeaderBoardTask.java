@@ -47,7 +47,7 @@ public class LeaderBoardTask extends AsyncTask<String, Integer, ArrayList<Leader
         while (true) {
             SomeStupidJavaMultipleReturnValues fuck = getStringByBeginEnd(json, "src=\"", "\"", index);
             if(fuck.NextIndex==0)break;
-            if(order>14)break;
+            //if(order>14)break;
 
             SomeStupidJavaMultipleReturnValues fuck2 = getStringByBeginEnd(json, "battleName\">", "</span>", fuck.NextIndex);
             SomeStupidJavaMultipleReturnValues fuck3 = getStringByBeginEnd(json, "cell-RiftLevel\">", "</td>", fuck2.NextIndex);
@@ -69,74 +69,11 @@ public class LeaderBoardTask extends AsyncTask<String, Integer, ArrayList<Leader
             lb.RiftTime = time;
             lb.CompletedTime = fuck5.StringValue;
             lb.ClassPictureUrl = fuck.StringValue;
-            //lb.ClassPicture = D3API.DownloadBitmap(lb.ClassPictureUrl,lb.ClassPictureUrl);
 
             list.add(lb);
         }
 
-        /*try {
-            JSONArray array = new JSONObject(json).getJSONArray("row");
 
-            for (int i = 0; i < array.length(); i++) {
-                LeaderBoard lb = new LeaderBoard();
-
-                JSONObject jo = array.getJSONObject(i);
-                lb.Order = (int)(jo.get("order"));
-                JSONArray player = jo.getJSONArray("player").getJSONObject(0).getJSONArray("data");
-                for(int j=0;j<player.length();j++) {
-                    String id = String.valueOf(player.getJSONObject(j).get("id"));
-
-                    switch(id){
-                        case "HeroBattleTag":lb.BattleTag = String.valueOf(player.getJSONObject(j).get("string"));break;
-                        case "HeroClass":lb.HeroClass = String.valueOf(player.getJSONObject(j).get("string"));break;
-                        case "HeroGender":lb.Gender = String.valueOf(player.getJSONObject(j).get("string"));break;
-                        default:break;
-                    }
-                }
-
-                JSONArray data = jo.getJSONArray("data");
-                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-                for(int j=0;j<data.length();j++) {
-                    String id = String.valueOf(data.getJSONObject(j).get("id"));
-
-
-                    switch(id){
-                        case "RiftLevel":lb.RiftLevel = (int)(data.getJSONObject(j).get("number"));break;
-                        case "RiftTime":
-                            int riftTime = (int)(data.getJSONObject(j).get("timestamp"))/1000;
-                            int min = riftTime/60;
-                            int sec = riftTime%60;
-                            lb.RiftTime = String.valueOf(min)+"分"+String.valueOf(sec)+"秒";
-                            break;
-                        case "CompletedTime":
-                            //D3API.WriteLog("LOG"+String.valueOf(j),data.getJSONObject(j).toString());
-                            long completedTime = (long)(data.getJSONObject(j).get("timestamp"));
-
-                            Date d1=new Date(completedTime);
-                            lb.CompletedTime =format.format(d1);
-                            break;
-                        default:break;
-                    }
-                }
-
-                int pos = lb.BattleTag.indexOf("#");
-                if(pos>-1){
-                    lb.Name = lb.BattleTag.substring(0,pos-1);
-                }
-                else{
-                    lb.Name = lb.BattleTag;
-                }
-                list.add(lb);
-            }
-        }
-        catch(JSONException ex){
-ex.printStackTrace();
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-*/
         return list;
     }
 

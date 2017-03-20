@@ -23,6 +23,7 @@ public class BoardAdapter extends BaseAdapter {
     private List<A> list;
     private Context context;
 
+    public List<A> getBoardList(){return this.list;}
     public BoardAdapter(Context context, List<A> list) {
         this.context = context;
         this.list = list;

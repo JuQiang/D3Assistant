@@ -4,17 +4,17 @@
     android:id="@+id/activity_add_friend_from_leader_board"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff000000"
     tools:context="iamfqq.d3assistant.AddFriendFromLeaderBoardActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/addfriendfromleaderboardtoolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#ff000000">
-    </android.support.v7.widget.Toolbar>
+        android:background="#ff000000"></android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/addfriendfromleaderboardtoolbar"
 
@@ -35,48 +35,51 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="textEnd"
-                android:text="排名"></TextView>
+                android:text="排名"
+                android:textAlignment="textEnd"></TextView>
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="账号"></TextView>
+                android:text="账号"
+                android:textAlignment="center"></TextView>
 
             <TextView
                 android:layout_width="28dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="职业"></TextView>
+                android:text="职业"
+                android:textAlignment="center"></TextView>
 
             <TextView
                 android:layout_width="86dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="大秘境层数"></TextView>
+                android:text="大秘境层数"
+                android:textAlignment="center"></TextView>
 
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="冲榜"></TextView>
+                android:text="冲榜"
+                android:textAlignment="center"></TextView>
         </LinearLayout>
 
         <ListView
             android:id="@+id/lvBoard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="9"
             android:clickable="true" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
 
             android:onClick="saveLeaderBoardFriend"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
-            android:text="保存" />
+            android:text="保存"
+            android:visibility="visible" />
 
     </LinearLayout>
 </RelativeLayout>
