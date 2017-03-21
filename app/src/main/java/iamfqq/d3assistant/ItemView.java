@@ -413,9 +413,15 @@ public class ItemView extends View {
             }
         }
         if (bmpTorso != null) {
-            canvas.drawBitmap(bmpTorso,
-                    new Rect(0, 0, bmpTorso.getWidth(), bmpTorso.getHeight()),
-                    new Rect(left + 2 * 3, top - 24 * 3, left + 2 * 3 + bmpTorso.getWidth() * 3, top - 24 * 3 + bmpTorso.getHeight() * 3), null);
+            if ((bmpTorso.getWidth() == 82) && (bmpTorso.getHeight() == 164)) {
+                canvas.drawBitmap(bmpTorso,
+                        new Rect(0, 0, bmpTorso.getWidth(), bmpTorso.getHeight()),
+                        new Rect(left + 2 * 3, top - 24 * 3, left + 2 * 3 + bmpTorso.getWidth() * 3, top - 24 * 3 + bmpTorso.getHeight() * 3), null);
+            } else {
+                canvas.drawBitmap(bmpTorso,
+                        new Rect(0, 0, bmpTorso.getWidth(), bmpTorso.getHeight()),
+                        new Rect(left + 2 * 3+32,top - 24 * 3+32, left + 2 * 3 + bmpTorso.getWidth() * 3+32, top - 24 * 3 + bmpTorso.getHeight() * 3+32), null);
+            }
         }
         if (itemTorso != null) {
             for (int i = 0; i < itemTorso.SocketCount; i++) {
